@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Meditação - Tela Inicial</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Importação das fontes: Plus Jakarta Sans para o corpo e Great Vibes para o estilo caligráfico -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-script { font-family: 'Great Vibes', cursive; }
   </style>
 </head>
 <body class="bg-slate-950 flex items-center justify-center min-h-screen p-4">
@@ -21,7 +22,7 @@
       
       <!-- Fundo: A sua foto exata + Gradiente idêntico ao original -->
       <div class="absolute inset-0 z-0">
-        <!-- ATENÇÃO: Salve a sua imagem na mesma pasta com o nome 'fundo.jpg' ou ajuste o 'src' abaixo -->
+        <!-- Certifique-se de que a imagem está na raiz do repositório como 'fundo.jpg' -->
         <img src="fundo.jpg" 
              alt="Double Exposure Background" 
              class="w-full h-full object-cover object-center">
@@ -40,13 +41,13 @@
         </button>
       </div>
 
-      <!-- Conteúdo Inferior: Tags, Títulos e Botão Play -->
+      <!-- Conteúdo Inferior: Tags, Títulos em Caligrafia e Botão Play -->
       <div class="relative z-10 pb-4">
         
         <!-- Tags de Categorias e Curtidas -->
         <div class="flex items-center gap-2.5 mb-4">
           <span class="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1.5 border border-white/20">
-            🌿 Calm
+            🌿 Calma
           </span>
           <span class="px-3.5 py-1.5 rounded-full bg-black/30 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/15">
             ❤️ 104
@@ -56,14 +57,14 @@
           </span>
         </div>
 
-        <!-- Título principal com fonte serifada elegante -->
-        <h1 class="text-4xl font-serif text-white leading-[1.15] mb-3 tracking-wide drop-shadow-md">
-          Deep breathing<br>for <span class="italic font-normal">Relaxation</span>
+        <!-- Título principal com estilo caligráfico e em português -->
+        <h1 class="text-4xl text-white leading-[1.1] mb-3 tracking-wide drop-shadow-md">
+          Respiração profunda<br>para <span class="font-script text-5xl text-rose-200 font-normal">Relaxamento</span>
         </h1>
 
-        <!-- Descrição -->
+        <!-- Descrição em Português -->
         <p class="text-white/80 text-sm leading-relaxed mb-6 font-light drop-shadow">
-          Follow a simple breathing rhythm to relax your muscles and quiet your thoughts. Perfect for a short break or before sleep.
+          Siga um ritmo simples de respiração para relaxar os músculos e acalmar os pensamentos. Perfeito para uma pausa curta ou antes de dormir.
         </p>
 
         <!-- Barra de Ações Inferior -->
@@ -75,7 +76,7 @@
             🔗
           </button>
           <button class="flex-1 py-4 bg-white text-slate-900 rounded-full font-medium flex items-center justify-center gap-3 shadow-xl hover:bg-slate-100 transition">
-            Play now 
+            Reproduzir agora 
             <span class="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs">▶</span>
           </button>
         </div>
