@@ -19,14 +19,14 @@
     <!-- Tela Inicial (Home) -->
     <div id="screen-home" class="relative w-full h-full flex flex-col justify-between p-6 overflow-hidden">
       
-      <!-- Fundo: Imagem de Dupla Exposição + Gradiente idêntico ao original -->
+      <!-- Fundo: A sua foto exata + Gradiente idêntico ao original -->
       <div class="absolute inset-0 z-0">
-        <!-- Como você enviou a imagem, colocamos a URL dela aqui ou salvamos localmente -->
-        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format&fit=crop" 
+        <!-- ATENÇÃO: Salve a sua imagem na mesma pasta com o nome 'fundo.jpg' ou ajuste o 'src' abaixo -->
+        <img src="fundo.jpg" 
              alt="Double Exposure Background" 
-             class="w-full h-full object-cover object-top scale-105">
+             class="w-full h-full object-cover object-center">
         
-        <!-- Gradiente customizado: suave no topo, escuro e profundo embaixo para dar contraste ao texto -->
+        <!-- Gradiente customizado: suave no topo, escuro e profundo embaixo para destacar perfeitamente os textos -->
         <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a15] via-[#0c0a15]/50 to-transparent"></div>
       </div>
 
