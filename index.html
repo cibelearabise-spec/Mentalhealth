@@ -45,11 +45,65 @@
 
 
     <!-- ======================================================== -->
+    <!-- TELA 0: CAPA / SPLASH SCREEN (Modelo da Segunda Foto) -->
+    <!-- ======================================================== -->
+    <div id="screen-splash" class="screen active relative w-full h-full flex-col justify-between pt-16 pb-10 px-6 overflow-hidden">
+      
+      <!-- Fundo -->
+      <div class="absolute inset-0 z-0">
+        <img src="fundo.jpg" alt="Background" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a0f] via-[#0c0a0f]/40 to-black/30"></div>
+      </div>
+
+      <!-- Topo da Capa: Botão Voltar e Menu -->
+      <div class="relative z-10 flex justify-between items-center w-full">
+        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
+          ←
+        </button>
+        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
+          ⋮
+        </button>
+      </div>
+
+      <!-- Conteúdo Central da Capa -->
+      <div class="relative z-10 flex flex-col justify-end h-full pb-8">
+        <!-- Tag "Calm" -->
+        <div class="self-start px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs">
+          <span>🌿</span> Calm
+        </div>
+
+        <!-- Título Estilizado idêntico ao modelo -->
+        <h1 class="text-4xl font-serif tracking-tight leading-tight mb-3">
+          Deep breathing <br>for <span class="font-calligraphy text-5xl text-amber-300 font-normal">Relaxation</span>
+        </h1>
+
+        <!-- Descrição -->
+        <p class="text-xs text-white/75 leading-relaxed max-w-[280px] mb-8">
+          Follow a simple breathing rhythm to relax your muscles and quiet your thoughts. Perfect for a short break or before sleep.
+        </p>
+
+        <!-- Botão Play Now / Entrar -->
+        <div class="flex items-center gap-3">
+          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
+            ✕
+          </button>
+          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
+            🔗
+          </button>
+          <button onclick="switchScreen('screen-home')" class="flex-1 py-4 bg-white text-slate-950 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-slate-100 transition active:scale-95 text-sm">
+            Play now <span>▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
     <!-- TELA 1: HOME / DASHBOARD PRINCIPAL -->
     <!-- ======================================================== -->
-    <div id="screen-home" class="screen active relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar">
+    <div id="screen-home" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar">
       
-      <!-- Fundo com imagem corrigida -->
+      <!-- Fundo -->
       <div class="absolute inset-0 z-0">
         <img src="fundo.jpg" alt="Background" class="w-full h-full object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a0f] via-[#0c0a0f]/60 to-black/40"></div>
@@ -203,18 +257,22 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Agora o botão Home leva à Capa) -->
     <!-- ======================================================== -->
     <div class="absolute bottom-0 left-0 right-0 z-50 bg-[#0c0a09]/95 backdrop-blur-xl border-t border-white/10 px-6 py-3 flex justify-between items-center">
-      <button onclick="switchScreen('screen-home')" id="nav-home" class="nav-item text-amber-400 transition p-2 hover:text-white">
+      <!-- Botão Home agora leva para a Capa (screen-splash) -->
+      <button onclick="switchScreen('screen-splash')" id="nav-home" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       </button>
+      <!-- Botão Player -->
       <button onclick="switchScreen('screen-player')" id="nav-player" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       </button>
+      <!-- Botão Central de Atalho (Vai para o Dashboard / Home Principal) -->
       <button onclick="switchScreen('screen-home')" class="w-12 h-12 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition transform hover:scale-105">
         🌿
       </button>
+      <!-- Botão Insights / Estatísticas -->
       <button onclick="switchScreen('screen-insights')" id="nav-insights" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </button>
@@ -237,7 +295,7 @@
       document.getElementById(screenId).classList.add('active');
 
       document.querySelectorAll('.nav-item').forEach(item => item.classList.replace('text-amber-400', 'text-white/40'));
-      if (screenId === 'screen-home') document.getElementById('nav-home').classList.replace('text-white/40', 'text-amber-400');
+      if (screenId === 'screen-splash') document.getElementById('nav-home').classList.replace('text-white/40', 'text-amber-400');
       if (screenId === 'screen-player') document.getElementById('nav-player').classList.replace('text-white/40', 'text-amber-400');
       if (screenId === 'screen-insights') document.getElementById('nav-insights').classList.replace('text-white/40', 'text-amber-400');
     }
