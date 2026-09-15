@@ -1,56 +1,78 @@
-<!-- Tela Inicial (Home) atualizada com o fundo correto de dupla exposição -->
-<div id="screen-home" class="screen active relative w-full h-full flex flex-col justify-between p-6 overflow-hidden">
-  <!-- Imagem de fundo de dupla exposição (Mulher + Oceano / Céu) -->
-  <div class="absolute inset-0 z-0">
-    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format&fit=crop" 
-         alt="Double exposure background" 
-         class="w-full h-full object-cover">
-    <!-- Gradiente escuro para garantir a legibilidade dos textos -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#120f1d] via-[#120f1d]/40 to-black/30"></div>
-  </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Preview</title>
+  <!-- 1. Importação obrigatória do Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 flex items-center justify-center min-h-screen p-4">
 
-  <!-- Conteúdo da Tela -->
-  <div class="relative z-10 flex justify-between items-center pt-4">
-    <button onclick="navigateTo('prev')" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <button onclick="navigateTo('menu')" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="6" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="18" r="1.5"/></svg>
-    </button>
-  </div>
+  <!-- Container do Smartphone (Garante o formato correto de aplicativo) -->
+  <div class="relative w-[390px] h-[844px] bg-[#120f1d] rounded-[40px] overflow-hidden shadow-2xl border-4 border-slate-700">
 
-  <div class="relative z-10 pb-6">
-    <div class="flex items-center gap-3 mb-4">
-      <span class="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1.5 border border-white/20">
-        🌿 Calm
-      </span>
-      <span class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/20">
-        ❤️ 104
-      </span>
-      <span class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/20">
-        🔖 85
-      </span>
+    <!-- Tela Inicial (Home) -->
+    <div id="screen-home" class="screen active relative w-full h-full flex flex-col justify-between p-6 overflow-hidden">
+      
+      <!-- Imagem de fundo corrigida (Dupla exposição: Mulher + Céu/Oceano) -->
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop" 
+             alt="Double exposure background" 
+             class="w-full h-full object-cover filter brightness-90">
+        <!-- Gradiente escuro para garantir a legibilidade perfeita dos textos -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#120f1d] via-[#120f1d]/50 to-black/40"></div>
+      </div>
+
+      <!-- Conteúdo Superior: Botões de navegação -->
+      <div class="relative z-10 flex justify-between items-center pt-4">
+        <button onclick="navigateTo('prev')" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="navigateTo('menu')" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="6" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="18" r="1.5"/></svg>
+        </button>
+      </div>
+
+      <!-- Conteúdo Inferior: Textos, tags e botão Play -->
+      <div class="relative z-10 pb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1.5 border border-white/20">
+            🌿 Calm
+          </span>
+          <span class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/20">
+            ❤️ 104
+          </span>
+          <span class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/20">
+            🔖 85
+          </span>
+        </div>
+
+        <h1 class="text-4xl font-serif text-white leading-tight mb-3">
+          Deep breathing<br>for <span class="italic font-normal">Relaxation</span>
+        </h1>
+
+        <p class="text-white/80 text-sm leading-relaxed mb-6">
+          Follow a simple breathing rhythm to relax your muscles and quiet your thoughts. Perfect for a short break or before sleep.
+        </p>
+
+        <div class="flex items-center gap-4">
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:bg-white/25 transition">
+            ✕
+          </button>
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:bg-white/25 transition">
+            🔗
+          </button>
+          <button class="flex-1 py-4 bg-white text-gray-900 rounded-full font-medium flex items-center justify-center gap-3 shadow-lg hover:bg-gray-100 transition">
+            Play now 
+            <span class="w-6 h-6 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs">▶</span>
+          </button>
+        </div>
+      </div>
+
     </div>
 
-    <h1 class="text-4xl font-serif text-white leading-tight mb-3">
-      Deep breathing<br>for <span class="italic font-normal">Relaxation</span>
-    </h1>
-
-    <p class="text-white/80 text-sm leading-relaxed mb-6">
-      Follow a simple breathing rhythm to relax your muscles and quiet your thoughts. Perfect for a short break or before sleep.
-    </p>
-
-    <div class="flex items-center gap-4">
-      <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:bg-white/25 transition">
-        ✕
-      </button>
-      <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center text-white border border-white/20 hover:bg-white/25 transition">
-        🔗
-      </button>
-      <button class="flex-1 py-4 bg-white text-gray-900 rounded-full font-medium flex items-center justify-center gap-3 shadow-lg hover:bg-gray-100 transition">
-        Play now 
-        <span class="w-6 h-6 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs">▶</span>
-      </button>
-    </div>
   </div>
-</div>
+
+</body>
+</html>
