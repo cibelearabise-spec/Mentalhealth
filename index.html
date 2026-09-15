@@ -14,7 +14,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* Efeito de Vidro (Glassmorphism) Refinado para Tons de Bege/Madeira */
     .glass-card {
       background: linear-gradient(135deg, rgba(255, 253, 249, 0.78) 0%, rgba(245, 237, 224, 0.5) 100%);
       backdrop-filter: blur(16px);
@@ -40,11 +39,14 @@
 </head>
 <body class="bg-[#26221c] flex items-center justify-center min-h-screen p-4">
 
-  <!-- Elemento de Áudio Oficial (relax.mp3) -->
+  <!-- Elemento de Áudio Oficial -->
   <audio id="relax-audio" loop>
     <source src="relax.mp3" type="audio/mp3">
     Seu navegador não suporta áudio.
   </audio>
+
+  <!-- Input oculto para carregar o arquivo manualmente se o navegador bloquear o local -->
+  <input type="file" id="mp3-file-input" accept="audio/mp3, audio/*" style="display: none;" onchange="loadUserAudio(event)">
 
   <!-- Container do Smartphone com Gradiente de Madeira Clara / Bege Acolhedor -->
   <div class="relative w-[390px] h-[844px] bg-gradient-to-br from-[#fbf8f3] via-[#f3ecdf] to-[#e4d5be] rounded-[48px] overflow-hidden shadow-2xl border-[8px] border-[#383127] flex flex-col justify-between text-stone-800 select-none">
@@ -102,16 +104,14 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: HOME (Com Gradiente de Madeira e Glassmorphism) -->
+    <!-- TELA 2: HOME -->
     <!-- ======================================================== -->
     <div id="screen-home" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar bg-gradient-to-b from-[#fbf8f3] via-[#f1e5d1] to-[#e4d4bc]">
       
-      <!-- Halo Luminoso Orgânico no Topo -->
       <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-[380px] h-[300px] bg-gradient-to-b from-amber-400/35 via-orange-300/15 to-transparent rounded-b-full blur-3xl"></div>
       </div>
 
-      <!-- Header -->
       <div class="relative z-10 px-6 pt-4 flex justify-between items-start">
         <div class="flex items-start gap-2">
           <span class="text-amber-700 text-lg mt-0.5">☀️</span>
@@ -124,7 +124,6 @@
         </div>
       </div>
 
-      <!-- Calendário Horizontal -->
       <div class="relative z-10 px-6 mt-4">
         <div class="flex justify-between items-center text-center">
           <div class="flex flex-col items-center opacity-40 text-stone-700"><span class="text-[10px]">10</span><span class="text-xs mt-1">Sun</span></div>
@@ -139,7 +138,6 @@
         </div>
       </div>
 
-      <!-- Card Recomendado com Efeito Vidro -->
       <div class="relative z-10 px-6 mt-6">
         <p class="text-[11px] text-amber-800 tracking-widest uppercase mb-2 font-bold text-center">✦ Aivo Recommendation</p>
         
@@ -160,7 +158,6 @@
         </div>
       </div>
 
-      <!-- Card Energy Forecast com Vidro -->
       <div class="relative z-10 px-6 mt-4">
         <div class="glass-card p-4 rounded-[26px] flex items-center justify-between text-stone-900">
           <div>
@@ -179,7 +176,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER / NOW PLAYING (Com Controle do relax.mp3) -->
+    <!-- TELA 3: PLAYER / NOW PLAYING -->
     <!-- ======================================================== -->
     <div id="screen-player" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-hidden bg-gradient-to-b from-[#f7f2ea] via-[#ede3d3] to-[#dfceb6] text-stone-900">
       
@@ -189,34 +186,34 @@
         </svg>
       </div>
 
-      <!-- Topo: Voltar e Player widget da Música (relax.mp3) -->
+      <!-- Topo com Player e Botão de Selecionar MP3 -->
       <div class="relative z-10 px-6 pt-4 flex flex-col gap-2">
         <div class="flex justify-between items-center">
           <button onclick="switchScreen('screen-home')" class="flex items-center gap-1 text-sm text-stone-700 hover:text-stone-900 font-medium">
             ← Now Playing
           </button>
-          <button class="glass-button w-8 h-8 rounded-full flex items-center justify-center text-xs text-stone-800">•••</button>
+          <button onclick="document.getElementById('mp3-file-input').click()" class="text-[10px] text-amber-800 underline font-semibold">📁 Escolher MP3</button>
         </div>
 
-        <!-- Widget Flutuante de Controle de Áudio (relax.mp3) -->
         <div class="glass-card p-3 rounded-2xl flex items-center justify-between shadow-md mt-1">
           <div class="flex items-center gap-2.5">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-orange-600 flex items-center justify-center text-white text-xs shadow-sm">
               🎵
             </div>
             <div>
-              <p class="text-xs font-semibold text-stone-900">relax.mp3</p>
-              <p class="text-[10px] text-stone-500" id="audio-status-label">Trilha sonora pausada</p>
+              <p id="audio-filename" class="text-xs font-semibold text-stone-900 truncate max-w-[130px]">relax.mp3</p>
+              <p class="text-[10px] text-stone-500" id="audio-status-label">Pronto para tocar</p>
             </div>
           </div>
-          <!-- Botão dedicado para tocar a música -->
-          <button onclick="toggleAudioPlayback()" id="audio-toggle-btn" class="px-3.5 py-1.5 bg-stone-900 text-stone-100 rounded-full text-[11px] font-semibold flex items-center gap-1 shadow hover:bg-stone-800 transition">
-            ▶ Tocar Música
-          </button>
+          <div class="flex items-center gap-1.5">
+            <button onclick="toggleAudioPlayback()" id="audio-toggle-btn" class="px-3.5 py-1.5 bg-stone-900 text-stone-100 rounded-full text-[11px] font-semibold flex items-center gap-1 shadow hover:bg-stone-800 transition">
+              ▶ Tocar
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Conteúdo Central: Anel de Respiração -->
+      <!-- Conteúdo Central -->
       <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-6 text-center">
         
         <div class="absolute top-2 right-6 text-[10px] glass-card px-2.5 py-1 rounded-lg text-stone-800 font-medium">
@@ -327,22 +324,18 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA COM GLASSMORPHISM      -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA -->
     <!-- ======================================================== -->
     <div class="absolute bottom-0 left-0 right-0 z-50 bg-[#f4ebdc]/80 backdrop-blur-2xl border-t border-white/80 px-6 py-3 flex justify-between items-center shadow-xl">
-      <!-- 1. Botão Home / Casinha -->
       <button onclick="switchScreen('screen-home')" id="nav-home" class="nav-item text-amber-700 hover:text-stone-900 transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       </button>
-      <!-- 2. Botão Capa/Splash -->
       <button onclick="switchScreen('screen-splash')" id="nav-splash" class="nav-item text-stone-400 hover:text-stone-900 transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
       </button>
-      <!-- 3. Botão Player -->
       <button onclick="switchScreen('screen-player')" id="nav-player" class="nav-item text-stone-400 hover:text-stone-900 transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       </button>
-      <!-- 4. Botão Insights -->
       <button onclick="switchScreen('screen-insights')" id="nav-insights" class="nav-item text-stone-400 hover:text-stone-900 transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </button>
@@ -370,13 +363,27 @@
       if (screenId === 'screen-insights') document.getElementById('nav-insights').classList.replace('text-stone-400', 'text-amber-700');
     }
 
+    // Função para carregar o arquivo MP3 enviado pelo usuário via seletor
+    function loadUserAudio(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        audio.src = fileURL;
+        document.getElementById('audio-filename').innerText = file.name;
+        document.getElementById('audio-status-label').innerText = 'Arquivo carregado com sucesso';
+        audio.play().then(() => {
+          updateAudioUI(true);
+        }).catch(err => console.log("Erro ao tocar arquivo do usuário:", err));
+      }
+    }
+
     function startSession() {
       switchScreen('screen-player');
-      // Inicia automaticamente a música relax.mp3 ao iniciar a sessão
       audio.play().then(() => {
         updateAudioUI(true);
       }).catch(error => {
-        console.log("Interação do usuário necessária para tocar o áudio.");
+        console.log("Navegador bloqueou reprodução automática. Clique em Tocar.");
+        updateAudioUI(false);
       });
       if (!timer) {
         runTimer();
@@ -387,7 +394,10 @@
       if (audio.paused) {
         audio.play().then(() => {
           updateAudioUI(true);
-        }).catch(err => console.log(err));
+        }).catch(err => {
+          alert("Não foi possível carregar o 'relax.mp3' automaticamente por restrição do navegador. Clique em 'Escolher MP3' no topo para selecionar o arquivo do seu computador!");
+          console.log(err);
+        });
       } else {
         audio.pause();
         updateAudioUI(false);
@@ -398,11 +408,11 @@
       const btn = document.getElementById('audio-toggle-btn');
       const label = document.getElementById('audio-status-label');
       if (isPlaying) {
-        btn.innerText = '⏸ Pausar Música';
-        label.innerText = 'Tocando relax.mp3';
+        btn.innerText = '⏸ Pausar';
+        label.innerText = 'Tocando áudio';
       } else {
-        btn.innerText = '▶ Tocar Música';
-        label.innerText = 'Trilha sonora pausada';
+        btn.innerText = '▶ Tocar';
+        label.innerText = 'Áudio pausado';
       }
     }
 
