@@ -14,8 +14,8 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes pulse-slow {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.08); opacity: 1; }
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.06); opacity: 0.95; }
     }
     .breathing-glow { animation: pulse-slow 4s infinite ease-in-out; }
   </style>
@@ -45,51 +45,39 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 0: CAPA / SPLASH SCREEN (Com o título correto em português) -->
+    <!-- TELA 1: CAPA / SPLASH SCREEN (Título do App e Dizeres) -->
     <!-- ======================================================== -->
-    <div id="screen-splash" class="screen active relative w-full h-full flex-col justify-between pt-16 pb-10 px-6 overflow-hidden">
+    <div id="screen-splash" class="screen active relative w-full h-full flex-col justify-between pt-16 pb-10 px-6 overflow-hidden bg-black">
       
-      <!-- Fundo -->
+      <!-- Fundo Neutro Sofisticado -->
       <div class="absolute inset-0 z-0">
-        <img src="fundo.jpg" alt="Background" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a0f] via-[#0c0a0f]/40 to-black/30"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a0f] via-[#140d1a]/50 to-black"></div>
+        <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-600/15 rounded-full blur-3xl pointer-events-none"></div>
       </div>
 
-      <!-- Topo da Capa: Botão Voltar e Menu -->
+      <!-- Topo da Capa -->
       <div class="relative z-10 flex justify-between items-center w-full">
-        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
-          ←
-        </button>
-        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
-          ⋮
-        </button>
+        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80">←</button>
+        <button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80">⋮</button>
       </div>
 
-      <!-- Conteúdo Central da Capa -->
+      <!-- Conteúdo Central -->
       <div class="relative z-10 flex flex-col justify-end h-full pb-8">
-        <!-- Tag "Calm" -->
         <div class="self-start px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs">
-          <span>🌿</span> Calm
+          <span>🌿</span> Aivo Calm
         </div>
 
-        <!-- Título Atualizado: Relaxamento e Saúde Mental (em caligrafia) -->
         <h1 class="text-3xl font-serif tracking-tight leading-tight mb-3">
           Relaxamento e <br><span class="font-calligraphy text-5xl text-amber-300 font-normal">Saúde Mental</span>
         </h1>
 
-        <!-- Descrição -->
         <p class="text-xs text-white/75 leading-relaxed max-w-[280px] mb-8">
           Siga um ritmo simples de respiração para relaxar os músculos e aquietar os pensamentos. Perfeito para uma pausa ou antes de dormir.
         </p>
 
-        <!-- Botão Play Now / Entrar -->
         <div class="flex items-center gap-3">
-          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
-            ✕
-          </button>
-          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:bg-white/20 transition">
-            🔗
-          </button>
+          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80">✕</button>
+          <button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80">🔗</button>
           <button onclick="switchScreen('screen-home')" class="flex-1 py-4 bg-white text-slate-950 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-slate-100 transition active:scale-95 text-sm">
             Play now <span>▶</span>
           </button>
@@ -99,36 +87,34 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 1: HOME / DASHBOARD PRINCIPAL -->
+    <!-- TELA 2: HOME (Com o Clarão/Halo Laranja Difuso no Topo) -->
     <!-- ======================================================== -->
-    <div id="screen-home" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar">
+    <div id="screen-home" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar bg-[#0b090c]">
       
-      <!-- Fundo -->
-      <div class="absolute inset-0 z-0">
-        <img src="fundo.jpg" alt="Background" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a0f] via-[#0c0a0f]/60 to-black/40"></div>
+      <!-- Clarão/Halo Laranja Difuso no Topo -->
+      <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-[360px] h-[280px] bg-gradient-to-b from-amber-500/50 via-orange-600/25 to-transparent rounded-b-full blur-2xl"></div>
       </div>
 
-      <!-- Header com o Título Organizado em Duas Linhas -->
+      <!-- Header -->
       <div class="relative z-10 px-6 pt-4 flex justify-between items-start">
         <div class="flex items-start gap-2">
-          <span class="text-amber-400 text-lg mt-0.5">🌿</span>
+          <span class="text-amber-400 text-lg mt-0.5">☀️</span>
           <div class="flex flex-col">
-            <span class="text-xs uppercase tracking-widest text-white/80 font-semibold">Relaxamento</span>
-            <span class="font-calligraphy text-3xl text-amber-300 -mt-1 leading-tight">Saúde Mental</span>
+            <span class="text-xs uppercase tracking-widest text-amber-200/90 font-bold">Aivo</span>
           </div>
         </div>
-        <div class="flex items-center gap-1.5 text-xs text-white/75 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 mt-1">
-          <span>📍</span> Brasil
+        <div class="flex items-center gap-1.5 text-[11px] text-white/75 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 mt-1">
+          <span>📍</span> Toronto, Ontario
         </div>
       </div>
 
-      <!-- Calendário Horizontal -->
+      <!-- Calendário Horizontal Iluminado pelo Clarão -->
       <div class="relative z-10 px-6 mt-4">
         <div class="flex justify-between items-center text-center">
           <div class="flex flex-col items-center opacity-40"><span class="text-[10px]">10</span><span class="text-xs mt-1">Sun</span></div>
           <div class="flex flex-col items-center opacity-60"><span class="text-[11px]">11</span><span class="text-xs mt-1">Mon</span></div>
-          <div class="flex flex-col items-center bg-amber-500 backdrop-blur-md px-3 py-2 rounded-2xl text-slate-950 shadow-lg scale-105 border border-white/20 font-bold">
+          <div class="flex flex-col items-center bg-amber-500/90 backdrop-blur-md px-3 py-2 rounded-2xl text-slate-950 shadow-xl scale-105 border border-white/30 font-bold">
             <span class="text-[10px]">12</span>
             <span class="text-xs mt-0.5">Tue</span>
           </div>
@@ -140,20 +126,20 @@
 
       <!-- Card Recomendado -->
       <div class="relative z-10 px-6 mt-6">
-        <p class="text-[11px] text-amber-400 tracking-wider uppercase mb-2 font-medium">✦ Recomendação Diária</p>
+        <p class="text-[11px] text-amber-300/90 tracking-wider uppercase mb-2 font-medium text-center">✦ Aivo recommendation</p>
         
-        <div class="p-5 rounded-[30px] bg-black/60 backdrop-blur-xl border border-white/15 shadow-2xl relative overflow-hidden">
+        <div class="p-5 rounded-[30px] bg-black/40 backdrop-blur-xl border border-white/15 shadow-2xl relative overflow-hidden text-center">
           <h2 class="text-2xl font-serif mb-1.5">Reset Your Mind</h2>
-          <p class="text-xs text-white/70 leading-relaxed mb-4">
-            Uma sessão guiada para liberar a tensão muscular e trazer sua atenção de volta ao presente.
+          <p class="text-xs text-white/70 leading-relaxed mb-4 px-2">
+            A gentle guided session designed to release tension and bring your attention back to the present.
           </p>
 
-          <div class="flex items-center gap-4 text-xs text-white/80 mb-5">
+          <div class="flex items-center justify-center gap-4 text-xs text-white/80 mb-5">
             <span class="flex items-center gap-1">⏱️ 10 min</span>
-            <span class="flex items-center gap-1">🎧 Guiado</span>
+            <span class="flex items-center gap-1">🎧 Guided</span>
           </div>
 
-          <button onclick="startSession()" class="w-full py-3.5 bg-white text-slate-950 rounded-full font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-slate-100 transition active:scale-95">
+          <button onclick="startSession()" class="w-full py-3.5 bg-white text-slate-950 rounded-full font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-slate-100 transition active:scale-95 text-sm">
             ▶ Play Now
           </button>
         </div>
@@ -161,9 +147,9 @@
 
       <!-- Card Energy Forecast -->
       <div class="relative z-10 px-6 mt-4">
-        <div class="p-4 rounded-[26px] bg-black/60 backdrop-blur-xl border border-white/15 flex items-center justify-between">
+        <div class="p-4 rounded-[26px] bg-black/40 backdrop-blur-xl border border-white/15 flex items-center justify-between">
           <div>
-            <p class="text-xs text-white/60 flex items-center gap-1 mb-1">⚡ Nível de Energia</p>
+            <p class="text-xs text-white/60 flex items-center gap-1 mb-1">⚡ Energy Forecast</p>
             <p class="text-2xl font-bold tracking-tight">78%</p>
           </div>
           <div class="flex items-end gap-1.5 h-10 px-2">
@@ -178,78 +164,138 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: PLAYER / SESSÃO ATIVA -->
+    <!-- TELA 3: PLAYER / NOW PLAYING (Vulto Abstrato Humano & Cronômetro) -->
     <!-- ======================================================== -->
-    <div id="screen-player" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-hidden bg-gradient-to-b from-[#15111c] via-[#0d0a12] to-black">
+    <div id="screen-player" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-hidden bg-[#0a080c]">
       
-      <div class="px-6 pt-4 flex justify-between items-center">
-        <button onclick="switchScreen('screen-home')" class="flex items-center gap-2 text-sm text-white/80 hover:text-white">
-          ← Voltar
-        </button>
-        <span id="session-status" class="text-xs tracking-widest text-amber-300 uppercase font-semibold">Sessão Ativa</span>
+      <!-- Silhueta / Vulto Abstrato Humano Brilhante ao Fundo -->
+      <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-30">
+        <svg class="w-80 h-80 text-amber-100 drop-shadow-[0_0_30px_rgba(255,200,100,0.5)]" viewBox="0 0 200 300" fill="currentColor">
+          <path d="M100 20C80 20 65 35 65 55C65 75 80 90 100 90C120 90 135 75 135 55C135 35 120 20 100 20ZM50 110C35 110 20 125 20 145V180C20 190 25 195 35 195C45 195 50 190 50 180V150H70V270C70 280 75 285 85 285C95 285 100 280 100 270V210H100V270C100 280 105 285 115 285C125 285 130 280 130 270V150H150V180C150 190 155 195 165 195C175 195 180 190 180 180V145C180 125 165 110 150 110H50Z" opacity="0.7"/>
+        </svg>
       </div>
 
-      <div class="flex flex-col items-center justify-center flex-1 relative px-6 text-center">
-        <div class="relative w-48 h-48 rounded-full border border-white/10 flex items-center justify-center mb-6">
+      <!-- Header do Player -->
+      <div class="relative z-10 px-6 pt-4 flex justify-between items-center">
+        <button onclick="switchScreen('screen-home')" class="flex items-center gap-1 text-sm text-white/80 hover:text-white">
+          ← Now Playing
+        </button>
+        <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center text-xs text-white/80">•••</button>
+      </div>
+
+      <!-- Centro com o Cronômetro e Marcações de Foco (Mind, Heart, Breath) -->
+      <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-6 text-center">
+        
+        <!-- Marcações de Foco nas Partes do Corpo -->
+        <div class="absolute top-4 right-6 text-[10px] bg-black/60 border border-white/20 px-2.5 py-1 rounded-lg backdrop-blur-md">
+          Mind <span class="text-amber-300">Soothe Thoughts</span>
+        </div>
+        <div class="absolute top-24 right-4 text-[10px] bg-black/60 border border-white/20 px-2.5 py-1 rounded-lg backdrop-blur-md">
+          Heart <span class="text-amber-300">Find Peace</span>
+        </div>
+        <div class="absolute top-40 left-6 text-[10px] bg-black/60 border border-white/20 px-2.5 py-1 rounded-lg backdrop-blur-md">
+          Breath <span class="text-amber-300">Slow Down</span>
+        </div>
+
+        <!-- Círculo Cronômetro com Respiração -->
+        <div class="relative w-44 h-44 rounded-full border border-white/20 flex items-center justify-center mb-6 bg-black/40 backdrop-blur-md">
           <div class="absolute inset-0 bg-amber-500/20 rounded-full breathing-glow blur-md"></div>
           <div class="relative z-10 flex flex-col items-center">
             <span id="timer-display" class="text-3xl font-bold tracking-wider">10:00</span>
-            <span id="breath-guide" class="text-xs text-amber-200 mt-1 uppercase tracking-widest">Inspire profundamente</span>
+            <span id="breath-guide" class="text-[10px] text-amber-200 mt-1 uppercase tracking-widest">Inspire</span>
           </div>
         </div>
 
         <h2 class="text-xl font-serif mb-1">Reset Your Mind</h2>
-        <p class="text-xs text-white/60 max-w-[260px]">Concentre-se no fluxo do ar e relaxe os ombros.</p>
+        <p class="text-xs text-white/70 max-w-[260px] mb-4">A gentle guided session designed to release tension and bring your attention back to the present.</p>
 
-        <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mt-6">
+        <!-- Barra de Progresso -->
+        <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mb-6">
           <div id="progress-bar" class="bg-amber-400 h-full w-0 transition-all duration-1000"></div>
         </div>
       </div>
 
-      <div class="px-6 pb-2 flex gap-3">
-        <button onclick="finishSession()" class="flex-1 py-3.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-xs font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition">
-          ⏹ Encerrar
+      <!-- Botões Inferiores do Player -->
+      <div class="relative z-10 px-6 pb-2 flex gap-3">
+        <button onclick="finishSession()" class="flex-1 py-3.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-xs font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition">
+          ⏹ Hold to finish
         </button>
-        <button onclick="togglePause()" id="pause-btn" class="flex-1 py-3.5 bg-white/10 backdrop-blur-md border border-white/15 rounded-full text-xs font-medium flex items-center justify-center gap-2 hover:bg-white/20 transition">
-          ⏸ Pausar
+        <button onclick="togglePause()" id="pause-btn" class="flex-1 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs font-medium flex items-center justify-center gap-2 hover:bg-white/20 transition">
+          ⏸ Take a breath
         </button>
       </div>
     </div>
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: AI INSIGHTS / ESTATÍSTICAS -->
+    <!-- TELA 4: AI INSIGHTS (Gráfico Circular de Pontuação / Curva) -->
     <!-- ======================================================== -->
-    <div id="screen-insights" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar bg-[#0c0a09]">
+    <div id="screen-insights" class="screen relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar bg-[#0b090c]">
       
-      <div class="px-6 pt-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">Insights de Saúde</h1>
-        <div class="flex items-center gap-1.5 text-xs text-white/75 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-          <span>📊</span> Relatório
+      <!-- Header -->
+      <div class="relative z-10 px-6 pt-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">AI Insights</h1>
+        <div class="flex items-center gap-1.5 text-[11px] text-white/75 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+          <span>📍</span> Toronto, Ontario
         </div>
       </div>
 
-      <div class="px-6 mt-4">
-        <div class="p-6 rounded-[30px] bg-black/60 backdrop-blur-xl border border-white/15 shadow-xl text-center">
-          <h2 class="text-4xl font-extrabold tracking-tight mb-1 text-amber-400">82<span class="text-sm font-normal text-white/50">/100</span></h2>
-          <p class="text-xs text-emerald-400 font-medium mb-3">↗ +12% que a semana passada</p>
+      <!-- Card do Gráfico Circular / Curva de Pontuação -->
+      <div class="relative z-10 px-6 mt-4">
+        <div class="p-6 rounded-[30px] bg-black/50 backdrop-blur-xl border border-white/15 shadow-xl text-center relative overflow-hidden">
+          
+          <!-- Curva Circular em Degrade Suave de Laranja -->
+          <div class="w-36 h-18 mx-auto mb-2 relative flex items-end justify-center">
+            <div class="absolute inset-0 border-t-[6px] border-amber-500 rounded-t-full opacity-90 shadow-[0_0_20px_rgba(245,158,11,0.6)]"></div>
+            <div class="w-5 h-5 bg-white rounded-full absolute top-1 right-6 shadow-md flex items-center justify-center">
+              <span class="text-[9px] text-black font-bold">➔</span>
+            </div>
+          </div>
+
+          <h2 class="text-4xl font-extrabold tracking-tight mb-1">82<span class="text-sm font-normal text-white/50">/100</span></h2>
+          <p class="text-xs text-emerald-400 font-medium mb-3">↗ +12% from last week</p>
           
           <div class="border-t border-white/10 pt-3 mt-2 text-left">
-            <p class="text-xs font-semibold mb-1">Equilíbrio Mental</p>
-            <p class="text-[11px] text-white/60 leading-relaxed">Seus hábitos de meditação criaram maior estabilidade emocional e foco esta semana.</p>
+            <p class="text-xs font-semibold mb-1">Your wellness score</p>
+            <p class="text-[11px] text-white/60 leading-relaxed">Your mindfulness habits improved, creating greater balance and emotional stability this week.</p>
           </div>
         </div>
       </div>
 
-      <div class="px-6 mt-4">
-        <div class="p-5 rounded-[26px] bg-black/60 backdrop-blur-xl border border-white/15">
+      <!-- Seção Mindfulness Activity -->
+      <div class="relative z-10 px-6 mt-4">
+        <div class="p-5 rounded-[26px] bg-black/50 backdrop-blur-xl border border-white/15">
           <div class="flex justify-between items-center mb-3">
-            <span class="text-xs font-semibold">🧘 Sessões Concluídas</span>
-            <span id="total-sessions" class="text-xs text-amber-400 font-bold">3 sessões</span>
+            <span class="text-xs font-semibold flex items-center gap-1">🧘 Mindfulness Activity</span>
+            <span class="text-[10px] text-white/60 bg-white/10 px-2 py-0.5 rounded-md">Last Month ▾</span>
           </div>
-          <div class="p-3 bg-white/5 rounded-xl border border-white/10 flex justify-between items-center text-xs">
-            <span class="text-white/70">Média Diária de Calma</span>
-            <span class="font-semibold text-amber-300">76 BPM</span>
+          <!-- Blocos de Frequência -->
+          <div class="grid grid-cols-6 gap-1 mb-3">
+            <div class="h-6 bg-amber-500/80 rounded-md"></div>
+            <div class="h-6 bg-amber-500/40 rounded-md"></div>
+            <div class="h-6 bg-amber-500 rounded-md"></div>
+            <div class="h-6 bg-white/10 rounded-md"></div>
+            <div class="h-6 bg-amber-500/60 rounded-md"></div>
+            <div class="h-6 bg-amber-500/90 rounded-md"></div>
+          </div>
+          <div class="flex justify-between items-center text-[10px] text-white/50 border-t border-white/10 pt-2">
+            <span>Goal reached</span>
+            <span>Partial</span>
+            <span>Inactivity</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Average -->
+      <div class="relative z-10 px-6 mt-3">
+        <div class="p-4 rounded-[22px] bg-black/50 backdrop-blur-xl border border-white/15 flex justify-between items-center">
+          <div>
+            <p class="text-[10px] text-white/60">Daily Average</p>
+            <p class="text-sm font-bold text-amber-300">76 BPM</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-white/60">Last reading</p>
+            <p class="text-xs font-semibold">3 min ago</p>
           </div>
         </div>
       </div>
@@ -260,19 +306,19 @@
     <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA -->
     <!-- ======================================================== -->
     <div class="absolute bottom-0 left-0 right-0 z-50 bg-[#0c0a09]/95 backdrop-blur-xl border-t border-white/10 px-6 py-3 flex justify-between items-center">
-      <!-- Botão Home leva à Capa -->
-      <button onclick="switchScreen('screen-splash')" id="nav-home" class="nav-item text-white/40 hover:text-white transition p-2">
+      <!-- Botão Capa -->
+      <button onclick="switchScreen('screen-splash')" id="nav-splash" class="nav-item text-amber-400 hover:text-white transition p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+      </button>
+      <!-- Botão Home -->
+      <button onclick="switchScreen('screen-home')" id="nav-home" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       </button>
       <!-- Botão Player -->
       <button onclick="switchScreen('screen-player')" id="nav-player" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       </button>
-      <!-- Botão Central de Atalho (Vai para o Dashboard / Home Principal) -->
-      <button onclick="switchScreen('screen-home')" class="w-12 h-12 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition transform hover:scale-105">
-        🌿
-      </button>
-      <!-- Botão Insights / Estatísticas -->
+      <!-- Botão Insights -->
       <button onclick="switchScreen('screen-insights')" id="nav-insights" class="nav-item text-white/40 hover:text-white transition p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </button>
@@ -285,7 +331,6 @@
     let timer = null;
     let timeLeft = 600;
     let isPaused = false;
-    let completedCount = 3;
     const audio = document.getElementById('relax-audio');
 
     function switchScreen(screenId) {
@@ -295,7 +340,8 @@
       document.getElementById(screenId).classList.add('active');
 
       document.querySelectorAll('.nav-item').forEach(item => item.classList.replace('text-amber-400', 'text-white/40'));
-      if (screenId === 'screen-splash') document.getElementById('nav-home').classList.replace('text-white/40', 'text-amber-400');
+      if (screenId === 'screen-splash') document.getElementById('nav-splash').classList.replace('text-white/40', 'text-amber-400');
+      if (screenId === 'screen-home') document.getElementById('nav-home').classList.replace('text-white/40', 'text-amber-400');
       if (screenId === 'screen-player') document.getElementById('nav-player').classList.replace('text-white/40', 'text-amber-400');
       if (screenId === 'screen-insights') document.getElementById('nav-insights').classList.replace('text-white/40', 'text-amber-400');
     }
@@ -324,13 +370,13 @@
 
           let breathText = document.getElementById('breath-guide');
           if (timeLeft % 8 < 4) {
-            breathText.innerText = "Inspire profundamente";
+            breathText.innerText = "Inspire";
           } else {
-            breathText.innerText = "Expire devagar";
+            breathText.innerText = "Expire";
           }
         } else if (timeLeft === 0) {
           clearInterval(timer);
-          alert('Parabéns! Sessão de relaxamento concluída com sucesso.');
+          alert('Parabéns! Sessão concluída com sucesso.');
           finishSession();
         }
       }, 1000);
@@ -340,12 +386,10 @@
       isPaused = !isPaused;
       if (isPaused) {
         audio.pause();
-        document.getElementById('pause-btn').innerText = '▶ Continuar';
-        document.getElementById('session-status').innerText = 'Sessão Pausada';
+        document.getElementById('pause-btn').innerText = '▶ Retomar';
       } else {
         audio.play();
         document.getElementById('pause-btn').innerText = '⏸ Pausar';
-        document.getElementById('session-status').innerText = 'Sessão Ativa';
       }
     }
 
@@ -354,15 +398,10 @@
       timer = null;
       timeLeft = 600;
       isPaused = false;
-      
       audio.pause();
       audio.currentTime = 0;
-
-      completedCount++;
-      document.getElementById('total-sessions').innerText = `${completedCount} sessões`;
       document.getElementById('timer-display').innerText = "10:00";
       document.getElementById('progress-bar').style.width = "0%";
-      document.getElementById('pause-btn').innerText = "⏸ Pausar";
       switchScreen('screen-home');
     }
   </script>
