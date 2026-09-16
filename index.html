@@ -67,8 +67,9 @@
 
   <!-- Elemento de Áudio puxando diretamente da Raiz do Repositório -->
   <audio id="relax-audio" preload="auto" loop>
-    <source src="relax.mp3" type="audio/mpeg">
-    <source src="./relax.mp3" type="audio/mp3">
+    <source src="./relax.mp3" type="audio/mpeg">
+    <source src="relax.mp3" type="audio/mp3">
+    Seu navegador não suporta áudio.
   </audio>
 
   <!-- Container Principal do Smartphone -->
@@ -89,15 +90,15 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 1: HOME / DASHBOARD (🏠 Casinha - Primeira aba) -->
+    <!-- TELA 1: HOME / DASHBOARD (🏠 Casinha - 1ª aba) -->
     <!-- ======================================================== -->
     <div id="screen-home" class="screen active absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer">
+        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer" title="Configurações">
           <i class="fa-solid fa-gear text-lg"></i>
         </div>
-        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
+        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm" title="Notificações">
           <i class="fa-solid fa-bell text-base"></i>
         </button>
       </div>
@@ -110,14 +111,14 @@
       </div>
 
       <div class="relative z-10 mt-6 flex flex-col gap-4 mb-auto">
-        <!-- Card Grande com Ação de Tocar o Áudio -->
+        <!-- Card Grande -->
         <div class="original-card p-6 relative shadow-md">
             <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">ReliefMind</h2>
             <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium pr-8">
                 A mindful space to slow down, breathe deeply and reconnect with yourself.
             </p>
-            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-                <span>Start Session Now</span> <i class="fa-solid fa-play text-xs"></i>
+            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95">
+                Start Session Now
             </button>
         </div>
 
@@ -172,7 +173,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: CAPA / SPLASH (✨ Estrelinha - Segunda aba) -->
+    <!-- TELA 2: CAPA / SPLASH (✨ Estrelinha - 2ª aba) -->
     <!-- ======================================================== -->
     <div id="screen-splash" class="screen absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-25">
       <div class="absolute inset-0 z-0">
@@ -201,7 +202,6 @@
         <div class="flex items-center gap-3">
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
-          <!-- Botão Play Now da Capa agora dispara o áudio -->
           <button onclick="playAudioAndOpenPlayer()" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
             Play now <span>▶</span>
           </button>
@@ -211,7 +211,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração - Terceira aba) -->
+    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração - 3ª aba) -->
     <!-- ======================================================== -->
     <div id="screen-player" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
       
@@ -232,7 +232,7 @@
 
         <div class="text-center">
             <h2 class="text-xl font-bold text-stone-900 mb-1">Deep Relaxation Flow</h2>
-            <p id="player-status-text" class="text-xs text-stone-600 font-medium">Toque no play para iniciar o áudio</p>
+            <p id="player-status-text" class="text-xs text-stone-600 font-medium">Toque no play para ouvir relax.mp3</p>
         </div>
 
         <!-- Barra de Progresso -->
@@ -259,7 +259,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico - Quarta aba) -->
+    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico - 4ª aba) -->
     <!-- ======================================================== -->
     <div id="screen-insights" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
@@ -310,7 +310,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Ordem do seu rascunho) -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Ordem: 🏠 Casinha | ✨ Estrelinha | 🤍 Coração | 📊 Gráfico) -->
     <!-- ======================================================== -->
     <nav class="absolute bottom-0 left-0 right-0 z-50 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200/80 px-8 py-3.5 flex justify-between items-center shadow-lg">
         <!-- 1. Casinha (Home) -->
@@ -333,7 +333,7 @@
 
   </div>
 
-  <!-- JavaScript atualizado para forçar a execução do áudio -->
+  <!-- JavaScript de Navegação e Reprodução -->
   <script>
     function navigateTo(screenId) {
         document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -354,19 +354,21 @@
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
 
+    audio.addEventListener('error', (e) => {
+        console.error("Erro ao carregar o arquivo relax.mp3:", e);
+        document.getElementById('player-status-text').innerText = "Verifique se o arquivo relax.mp3 está na raiz";
+    });
+
     function playAudioAndOpenPlayer() {
-        navigateTo('player'); // Vai direto para a tela do coração
-        
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
             document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
         }).catch(err => {
-            console.log("Bloqueio de autoplay:", err);
-            isPlaying = false;
-            document.getElementById('play-pause-icon').className = "fa-solid fa-play";
-            document.getElementById('player-status-text').innerText = "Clique no botão Play para ouvir";
+            console.log("Autoplay restrito pelo navegador:", err);
+            document.getElementById('player-status-text').innerText = "Toque no play para iniciar";
         });
+        navigateTo('player');
     }
 
     function togglePlayPause() {
@@ -382,6 +384,7 @@
                 document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
             }).catch(err => {
                 console.log("Erro ao reproduzir:", err);
+                document.getElementById('player-status-text').innerText = "Erro ao reproduzir áudio";
             });
         }
     }
