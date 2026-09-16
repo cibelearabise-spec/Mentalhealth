@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReliefMind - Premium</title>
+  <title>Mentalhealth - App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,6 +14,7 @@
     .font-calligraphy {
       font-family: 'Great Vibes', cursive;
     }
+    /* Sistema de Telas: por padrão ficam escondidas, a ativa aparece */
     .screen {
       display: none;
     }
@@ -28,19 +29,16 @@
       scrollbar-width: none;
     }
     
-    /* Estilo do Card Original */
     .original-card {
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.04);
     }
 
-    /* Gradiente de Fundo para as Telas Seguintes com Clarão Laranja */
     .app-gradient-bg {
       background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.22) 0%, rgba(251, 246, 238, 1) 60%);
     }
 
-    /* Fundo Imersivo do Player */
     .player-bg {
       background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #0c0a09 100%);
     }
@@ -74,7 +72,7 @@
     <!-- ======================================================== -->
     <!-- TELA 1: CAPA / SPLASH (✨ Brilhos) -->
     <!-- ======================================================== -->
-    <div id="screen-splash" class="screen active absolute inset-0 flex flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-20">
+    <div id="screen-splash" class="screen active absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-20">
       <div class="absolute inset-0 z-0">
         <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
@@ -112,7 +110,7 @@
     <!-- ======================================================== -->
     <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) -->
     <!-- ======================================================== -->
-    <div id="screen-home" class="screen absolute inset-0 app-gradient-bg flex flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-20">
+    <div id="screen-home" class="screen absolute inset-0 app-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
       <div class="flex justify-between items-center pt-2">
         <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm">
@@ -195,7 +193,7 @@
     <!-- ======================================================== -->
     <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração) -->
     <!-- ======================================================== -->
-    <div id="screen-player" class="screen absolute inset-0 player-bg flex flex-col justify-between pt-16 pb-24 px-6 text-stone-100 z-20">
+    <div id="screen-player" class="screen absolute inset-0 player-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-100 z-25">
       
       <div class="flex justify-between items-center pt-2">
         <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-md">✕</button>
@@ -243,7 +241,7 @@
     <!-- ======================================================== -->
     <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico) -->
     <!-- ======================================================== -->
-    <div id="screen-insights" class="screen absolute inset-0 app-gradient-bg flex flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-20">
+    <div id="screen-insights" class="screen absolute inset-0 app-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
       <div class="flex justify-between items-center pt-2">
         <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm">
@@ -292,13 +290,13 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Com a ordem exata pedida) -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA -->
     <!-- ======================================================== -->
-    <nav class="absolute bottom-0 left-0 right-0 z-40 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200 px-8 py-3.5 flex justify-between items-center shadow-lg">
-        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+    <nav class="absolute bottom-0 left-0 right-0 z-50 bg-[#fbf6ee]/95 backdrop-blur-xl border-t border-stone-200 px-8 py-3.5 flex justify-between items-center shadow-lg">
+        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition">
             <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
         </button>
-        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition">
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
             <i class="fa-solid fa-house text-lg"></i>
         </button>
         <button onclick="navigateTo('player')" id="nav-player" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
@@ -311,7 +309,7 @@
 
   </div>
 
-  <!-- JavaScript de Navegação e Reprodução do Áudio da Raiz -->
+  <!-- JavaScript de Navegação e Reprodução -->
   <script>
     function navigateTo(screenId) {
         document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -337,7 +335,7 @@
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
         }).catch(err => {
-            console.log("Autoplay bloqueado pelo navegador, clique no play do player:", err);
+            console.log("Autoplay bloqueado pelo navegador:", err);
         });
         navigateTo('player');
     }
