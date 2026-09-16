@@ -1,479 +1,241 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReliefMind - Premium</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #26221c;
-        }
-        /* Efeito de Vidro Embaçado Premium (Glassmorphism) */
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(245, 237, 224, 0.45) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            box-shadow: 0 12px 35px 0 rgba(168, 148, 120, 0.15);
-        }
-        /* Manchas de luz abstratas para dar profundidade e cor */
-        .ambient-glow-1 {
-            position: absolute;
-            width: 340px;
-            height: 340px;
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, rgba(220, 38, 38, 0.1) 50%, transparent 80%);
-            border-radius: 50%;
-            filter: blur(50px);
-            z-index: 0;
-            pointer-events: none;
-        }
-        .ambient-glow-2 {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(220, 38, 38, 0.08) 60%, transparent 80%);
-            border-radius: 50%;
-            filter: blur(50px);
-            z-index: 0;
-            pointer-events: none;
-        }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReliefMind - Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-calligraphy {
+      font-family: 'Great Vibes', cursive;
+    }
+    .screen {
+      display: none;
+    }
+    .screen.active {
+      display: flex;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbbar-width: none;
+    }
+    
+    /* Estilo Original do Seu Card (Preservado) */
+    .original-card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    /* Gradiente de Fundo para as Telas Seguintes */
+    .app-gradient-bg {
+      background: linear-gradient(145deg, #fbf6ee 0%, #f5ece0 50%, #e6d9c2 100%);
+    }
+  </style>
 </head>
-<body class="flex justify-center items-center min-h-screen p-0 sm:p-6">
+<body class="bg-[#26221c] flex items-center justify-center min-h-screen p-4">
 
-    <!-- Container do Aplicativo (Simulador de Smartphone) -->
-    <div class="relative w-full sm:w-[390px] h-screen sm:h-[844px] bg-gradient-to-br from-[#fbf8f3] via-[#f3ecdf] to-[#e4d5be] sm:rounded-[48px] sm:border-[8px] sm:border-[#383127] overflow-hidden flex flex-col shadow-2xl text-stone-800 select-none">
-        
-        <!-- Elementos de Luz Abstrata de Fundo (Garante o visual rico em todas as telas) -->
-        <div class="ambient-glow-1 -top-10 -left-10"></div>
-        <div class="ambient-glow-2 bottom-10 -right-10"></div>
+  <!-- Elemento de Áudio -->
+  <audio id="relax-audio" loop>
+    <source src="relax.mp3" type="audio/mp3">
+    Seu navegador não suporta áudio.
+  </audio>
 
-        <!-- Barra de Status Superior (Estilo iOS) -->
-        <div class="relative z-20 flex justify-between items-center px-7 pt-4 pb-2 text-xs text-stone-600 font-semibold">
-            <span id="current-time">9:41</span>
-            <div class="w-24 h-6 bg-stone-900 rounded-full"></div>
-            <div class="flex items-center space-x-1.5 text-[10px]">
-                <i class="fa-solid fa-signal"></i>
-                <i class="fa-solid fa-wifi"></i>
-                <i class="fa-solid fa-battery-full text-xs"></i>
+  <!-- Container do Smartphone -->
+  <div class="relative w-[390px] h-[844px] bg-white rounded-[48px] overflow-hidden shadow-2xl border-[8px] border-[#383127] flex flex-col justify-between text-stone-900 select-none">
+
+    <!-- Barra de Status iOS -->
+    <div class="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-7 pt-4 pb-2 bg-white/50 backdrop-blur-sm pointer-events-none text-stone-900">
+      <span id="current-time" class="text-xs font-semibold tracking-tight">11:38</span>
+      <div class="w-24 h-7 bg-black rounded-full flex items-center justify-center">
+        <div class="w-16 h-1.5 bg-stone-900 rounded-full"></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-700">
+        <i class="fa-solid fa-signal text-[10px]"></i>
+        <i class="fa-solid fa-wifi text-[10px]"></i>
+        <i class="fa-solid fa-battery-full text-xs"></i>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 1: CAPA / SPLASH SCREEN (A imagem com o mar) -->
+    <!-- ======================================================== -->
+    <div id="screen-splash" class="screen active relative w-full h-full flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white">
+      
+      <div class="absolute inset-0 z-0">
+        <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 flex justify-between items-center w-full">
+        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">←</button>
+        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">⋮</button>
+      </div>
+
+      <div class="relative z-10 flex flex-col justify-end h-full pb-8">
+        <div class="self-start px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs shadow-md">
+          <span>🌿</span> Aivo Calm
+        </div>
+
+        <h1 class="text-3xl font-semibold tracking-tight leading-tight mb-3">
+          Relaxamento e <br><span class="font-calligraphy text-5xl text-amber-200 font-normal">Saúde Mental</span>
+        </h1>
+
+        <p class="text-xs text-white/80 leading-relaxed max-w-[280px] mb-8">
+          Siga um ritmo simples de respiração para relaxar os músculos e aquietar os pensamentos. Perfeito para uma pausa ou antes de dormir.
+        </p>
+
+        <div class="flex items-center gap-3">
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
+          <button onclick="startSession()" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
+            Play now <span>▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 2: HOME / DASHBOARD (Com o fundo gradiente e SEUS CARDS) -->
+    <!-- ======================================================== -->
+    <div id="screen-home" class="screen app-gradient-bg relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar">
+      
+      <div class="relative z-10 px-6 pt-10 flex justify-between items-center">
+        <button onclick="startSession()" class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm">
+          <i class="fa-solid fa-gear text-lg"></i>
+        </button>
+        <button onclick="navigateTo('perfil')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+
+      <div class="relative z-10 px-6 mt-6 flex flex-col gap-2">
+        <span class="inline-block px-4 py-1.5 original-card text-xs text-stone-700 font-semibold tracking-wide w-fit shadow-sm">
+            <i class="fa-solid fa-leaf text-green-700 mr-1.5"></i>Recommended
+        </span>
+        <h1 class="text-4xl font-bold tracking-tight text-stone-900">Hi, Vikas</h1>
+      </div>
+
+      <div class="relative z-10 px-6 mt-8 flex flex-col gap-5">
+        <!-- Card Grande "ReliefMind" -->
+        <div class="original-card p-6 relative shadow-md">
+            <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">ReliefMind</h2>
+            <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium pr-8">
+                A mindful space to slow down, breathe deeply and reconnect with yourself.
+            </p>
+            <button onclick="startSession()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95">
+                Start Session Now
+            </button>
+        </div>
+
+        <!-- Grid de Cards Menores -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Card 1: Listen Audio -->
+          <div onclick="startSession()" class="original-card p-5 flex flex-col justify-between h-48 cursor-pointer hover:opacity-95 transition shadow-md">
+            <div class="flex justify-between items-start">
+              <span class="text-sm font-bold text-stone-900">Listen Audio</span>
+              <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600">
+                <i class="fa-solid fa-play text-[11px]"></i>
+              </div>
+            </div>
+            <div>
+                <div class="flex items-center space-x-1.5 h-8 mb-2 text-red-500">
+                    <span class="w-1 h-4 bg-stone-200 rounded-full"></span>
+                    <span class="w-1 h-8 bg-red-500 rounded-full"></span>
+                    <span class="w-1 h-6 bg-red-600 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-5 bg-red-500 rounded-full"></span>
+                    <span class="w-1 h-9 bg-red-600 rounded-full"></span>
+                    <span class="w-1 h-5 bg-red-500 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-7 bg-red-600 rounded-full"></span>
+                    <span class="w-1 h-3 bg-stone-200 rounded-full"></span>
+                </div>
+                <span class="text-[11px] text-stone-600 font-medium">4:26 min</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Play Video -->
+          <div onclick="startSession()" class="original-card p-5 flex flex-col justify-between h-48 cursor-pointer hover:opacity-95 transition shadow-md">
+            <div class="flex justify-between items-start">
+                <span class="text-sm font-bold text-stone-900">Play Video</span>
+                <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600">
+                  <i class="fa-solid fa-video text-[11px]"></i>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center space-x-1.5 h-8 mb-2 text-stone-400">
+                    <span class="w-1 h-7 bg-stone-400 rounded-full"></span>
+                    <span class="w-1 h-5 bg-stone-300 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-9 bg-red-600 rounded-full"></span>
+                    <span class="w-1 h-6 bg-stone-400 rounded-full"></span>
+                    <span class="w-1 h-8 bg-stone-400 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-5 bg-stone-300 rounded-full"></span>
+                </div>
+                <span class="text-[11px] text-stone-600 font-medium">6:32 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards Inferiores (Pílulas) -->
+        <div class="grid grid-cols-3 gap-3 pt-1">
+          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
+            <span class="text-xs text-stone-800 font-semibold">Mind Relief</span>
+          </div>
+          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
+            <span class="text-xs text-stone-800 font-semibold">Meditation</span>
+          </div>
+          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
+            <span class="text-xs text-stone-800 font-semibold">Music</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 3: PLAYER / NOW PLAYING (Com o fundo gradiente) -->
+    <!-- ======================================================== -->
+    <div id="screen-player" class="screen app-gradient-bg relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-hidden text-stone-900">
+      
+      <div class="relative z-10 px-6 pt-4 flex flex-col gap-6 h-full justify-center items-center">
+        <div class="w-full flex justify-between items-center absolute top-12 left-0 px-6">
+          <button onclick="navigateTo('screen-home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm">✕</button>
+          <span class="text-xs font-bold tracking-wider uppercase text-amber-800">Sessão em Andamento</span>
+          <div class="w-10"></div>
+        </div>
+
+        <!-- Círculo Central -->
+        <div class="relative w-64 h-64 rounded-full bg-stone-100 flex items-center justify-center shadow-inner border border-white">
+            <div class="absolute inset-0 rounded-full border-2 border-dashed border-amber-200 animate-spin" style="animation-duration: 30s;"></div>
+            <div class="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-headphones text-6xl text-amber-300 animate-pulse"></i>
             </div>
         </div>
 
-        <!-- CONTEÚDO PRINCIPAL (TELAS) -->
-        <main class="relative z-10 flex-1 overflow-y-auto px-6 pb-28 pt-2 no-scrollbar">
+        <div class="text-center w-full px-4">
+            <h2 id="player-title" class="text-2xl font-bold text-stone-950 mb-1.5">Deep Relaxation Flow</h2>
+            <p id="player-status" class="text-sm text-stone-700">Aproveite sua jornada de foco.</p>
+        </div>
 
-            <!-- TELA 1: HOME -->
-            <section id="screen-home" class="screen-view space-y-6">
-                <!-- Top Header -->
-                <div class="flex justify-between items-center pt-2">
-                    <div class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-red-600 shadow-sm">
-                        <i class="fa-solid fa-sun text-lg"></i>
-                    </div>
-                    <button onclick="navigateTo('perfil')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-stone-700 hover:text-black transition shadow-sm">
-                        <i class="fa-solid fa-bars text-base"></i>
-                    </button>
-                </div>
+        <!-- Barra de Progresso -->
+        <div class="w-full px-4 space-y-2">
+          <div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
+            <div id="player-progress-bar" class="bg-stone-900 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+          </div>
+          <div class="flex justify-between text-xs text-stone-600 font-medium font-mono">
+            <span id="player-current-time">0:00</span>
+            <span id="player-total-duration">4:25</span>
+          </div>
+        </div>
 
-                <!-- Saudação -->
-                <div>
-                    <span class="inline-block px-3.5 py-1 rounded-full glass-card text-[11px] text-stone-600 font-semibold tracking-wide mb-2 shadow-sm">🌿 Recommended</span>
-                    <h1 class="text-3xl font-bold tracking-tight text-stone-900" id="user-greeting">Hi, Vikas</h1>
-                </div>
-
-                <!-- Banner Principal / Hero Card -->
-                <div class="glass-card rounded-[32px] p-6 relative overflow-hidden">
-                    <h2 class="text-2xl font-extrabold tracking-wide text-stone-900 mb-2">ReliefMind</h2>
-                    <p class="text-xs text-stone-600 leading-relaxed mb-6 font-medium">A mindful space to slow down, breathe deeply and reconnect with yourself.</p>
-                    <button onclick="startSession('Deep Relaxation Flow', 265)" class="w-full py-3.5 bg-gradient-to-r from-stone-900 to-stone-800 hover:from-stone-800 hover:to-stone-700 rounded-2xl text-xs font-semibold text-stone-100 tracking-wide shadow-xl transition active:scale-95">
-                        Start Session Now
-                    </button>
-                </div>
-
-                <!-- Cards de Mídia Rápida -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Listen Audio Card -->
-                    <div onclick="startSession('Morning Calm Audio', 266)" class="glass-card rounded-[28px] p-4 flex flex-col justify-between h-44 cursor-pointer hover:bg-white/80 transition group shadow-sm">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-stone-900">Listen Audio</span>
-                            <div class="w-8 h-8 rounded-full bg-stone-900/10 flex items-center justify-center text-stone-800 group-hover:bg-red-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-play text-[10px]"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex items-center space-x-1 h-6 mb-2 text-red-600">
-                                <span class="w-1 h-3 bg-red-500 rounded-full animate-pulse"></span>
-                                <span class="w-1 h-6 bg-red-600 rounded-full"></span>
-                                <span class="w-1 h-4 bg-red-400 rounded-full"></span>
-                                <span class="w-1 h-5 bg-red-500 rounded-full"></span>
-                                <span class="w-1 h-2 bg-red-700 rounded-full"></span>
-                            </div>
-                            <span class="text-[10px] text-stone-500 font-medium">4:26 min</span>
-                        </div>
-                    </div>
-
-                    <!-- Play Video Card -->
-                    <div onclick="startSession('Visual Breathing Video', 392)" class="glass-card rounded-[28px] p-4 flex flex-col justify-between h-44 cursor-pointer hover:bg-white/80 transition group shadow-sm">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-stone-900">Play Video</span>
-                            <div class="w-8 h-8 rounded-full bg-stone-900/10 flex items-center justify-center text-stone-800 group-hover:bg-red-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-video text-[10px]"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex items-center space-x-1 h-6 mb-2 text-stone-400">
-                                <span class="w-1 h-5 bg-stone-400 rounded-full"></span>
-                                <span class="w-1 h-2 bg-stone-500 rounded-full"></span>
-                                <span class="w-1 h-6 bg-red-600 rounded-full animate-pulse"></span>
-                                <span class="w-1 h-4 bg-stone-400 rounded-full"></span>
-                            </div>
-                            <span class="text-[10px] text-stone-500 font-medium">6:32 min</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Categorias Inferiores -->
-                <div class="grid grid-cols-3 gap-3 pt-2">
-                    <div onclick="navigateTo('programas')" class="glass-card p-3.5 rounded-2xl text-center cursor-pointer hover:bg-white/80 transition shadow-sm">
-                        <span class="text-xs text-stone-800 font-semibold">Mind Relief</span>
-                    </div>
-                    <div onclick="navigateTo('programas')" class="glass-card p-3.5 rounded-2xl text-center cursor-pointer hover:bg-white/80 transition shadow-sm">
-                        <span class="text-xs text-stone-800 font-semibold">Meditation</span>
-                    </div>
-                    <div onclick="navigateTo('programas')" class="glass-card p-3.5 rounded-2xl text-center cursor-pointer hover:bg-white/80 transition shadow-sm">
-                        <span class="text-xs text-stone-800 font-semibold">Music</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TELA 2: PROGRAMAS / MEDITAÇÕES -->
-            <section id="screen-programas" class="screen-view hidden space-y-6">
-                <div class="flex justify-between items-center pt-2">
-                    <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-stone-700 hover:text-black shadow-sm">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <span class="text-sm font-bold tracking-wide text-stone-800">Mind Relief</span>
-                    <button onclick="navigateTo('perfil')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-stone-700 shadow-sm">
-                        <i class="fa-solid fa-bars text-xs"></i>
-                    </button>
-                </div>
-
-                <div>
-                    <h2 class="text-2xl font-bold tracking-tight text-stone-900 mb-4">Choose Your<br>Today's Meditations</h2>
-                    <!-- Filtros em pílulas -->
-                    <div class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar">
-                        <button class="px-4 py-2 bg-stone-900 text-stone-100 rounded-full text-xs font-semibold shadow-md">Mind Relief</button>
-                        <button onclick="startSession('Daily Meditation Routine', 300)" class="px-4 py-2 glass-card text-stone-700 rounded-full text-xs font-semibold hover:bg-white/80 shadow-sm">Daily Meditation</button>
-                        <button onclick="startSession('Deep Sleep Audio', 600)" class="px-4 py-2 glass-card text-stone-700 rounded-full text-xs font-semibold hover:bg-white/80 shadow-sm">Sleep</button>
-                    </div>
-                </div>
-
-                <!-- Card de Respiração Guiada Funcional com Timer -->
-                <div class="glass-card rounded-[28px] p-5 space-y-3 shadow-md">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-stone-900">Take a deep breath</h3>
-                        <button onclick="toggleBreatheTimer()" id="breathe-toggle-btn" class="w-9 h-9 rounded-full bg-stone-900 text-white flex items-center justify-center shadow hover:bg-stone-800 transition">
-                            <i id="breathe-icon" class="fa-solid fa-play text-xs"></i>
-                        </button>
-                    </div>
-                    <div class="relative bg-white/40 rounded-2xl p-4 flex items-center justify-between border border-white/60">
-                        <span id="breathe-current" class="text-xs text-stone-600 font-mono font-bold">00s</span>
-                        <div class="flex items-center space-x-1 text-red-600">
-                            <span class="w-1.5 h-3 bg-red-500 rounded-full animate-pulse"></span>
-                            <span class="w-1.5 h-6 bg-red-600 rounded-full"></span>
-                            <span class="w-1.5 h-8 bg-red-700 rounded-full"></span>
-                            <span class="w-1.5 h-5 bg-red-500 rounded-full"></span>
-                            <span class="w-1.5 h-3 bg-red-600 rounded-full animate-pulse"></span>
-                        </div>
-                        <span class="text-xs text-stone-600 font-mono font-bold">45s</span>
-                    </div>
-                </div>
-
-                <!-- Lista de Trilha / Vídeo -->
-                <div onclick="startSession('Dancing In The Flames', 155)" class="glass-card rounded-[28px] p-3.5 flex items-center space-x-4 cursor-pointer hover:bg-white/80 transition shadow-sm">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-stone-900 to-amber-900 flex items-center justify-center relative overflow-hidden flex-shrink-0 shadow-md">
-                        <i class="fa-solid fa-play text-white text-sm z-10"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-sm font-bold text-stone-900 mb-1">Dancing In The Flames</h4>
-                        <span class="text-[11px] text-stone-500 font-medium">2:35 min • Guided Audio</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TELA 3: PLAYER / SESSÃO ATIVA -->
-            <section id="screen-player" class="screen-view hidden space-y-6 flex flex-col items-center justify-center text-center py-4">
-                <div class="w-full flex justify-between items-center">
-                    <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-stone-700 shadow-sm">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                    <span class="text-xs font-bold tracking-wider uppercase text-amber-800">Sessão em Andamento</span>
-                    <div class="w-10"></div>
-                </div>
-
-                <!-- Círculo Visualizador -->
-                <div class="relative w-52 h-52 rounded-full glass-card flex items-center justify-center my-4 shadow-xl border border-white">
-                    <div class="absolute inset-2 rounded-full border border-dashed border-amber-600/40 animate-spin" style="animation-duration: 20s;"></div>
-                    <div class="w-36 h-36 rounded-full bg-gradient-to-tr from-stone-900 to-stone-700 flex items-center justify-center shadow-inner">
-                        <i class="fa-solid fa-headphones text-4xl text-amber-200 animate-pulse"></i>
-                    </div>
-                </div>
-
-                <div class="w-full px-2">
-                    <h2 id="player-title" class="text-xl font-bold text-stone-900 mb-1">Deep Relaxation Flow</h2>
-                    <p id="player-status" class="text-xs text-stone-600 font-medium">Aproveite sua jornada de foco.</p>
-                </div>
-
-                <!-- Barra de Progresso -->
-                <div class="w-full space-y-1.5 px-2">
-                    <div class="w-full bg-stone-300/60 h-2 rounded-full overflow-hidden border border-white/80">
-                        <div id="player-progress-bar" class="bg-gradient-to-r from-stone-900 to-amber-700 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-stone-500 font-mono font-bold">
-                        <span id="player-current-time">0:00</span>
-                        <span id="player-total-duration">4:25</span>
-                    </div>
-                </div>
-
-                <!-- Controles -->
-                <div class="w-full glass-card rounded-[28px] p-4 flex items-center justify-around mt-2 shadow-md">
-                    <button onclick="skipPlayer(-15)" class="text-stone-700 hover:text-black transition"><i class="fa-solid fa-rotate-left text-lg"></i></button>
-                    <button onclick="toggleMasterPlay()" id="master-play-btn" class="w-14 h-14 rounded-full bg-stone-900 hover:bg-stone-800 text-white flex items-center justify-center shadow-lg shadow-stone-900/30 transition active:scale-95">
-                        <i id="master-play-icon" class="fa-solid fa-pause text-xl"></i>
-                    </button>
-                    <button onclick="skipPlayer(15)" class="text-stone-700 hover:text-black transition"><i class="fa-solid fa-rotate-right text-lg"></i></button>
-                </div>
-            </section>
-
-            <!-- TELA 4: PERFIL E PROGRESSO -->
-            <section id="screen-perfil" class="screen-view hidden space-y-6">
-                <div class="flex justify-between items-center pt-2">
-                    <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-stone-700 shadow-sm">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <span class="text-sm font-bold tracking-wide text-stone-800">User Profile</span>
-                    <div class="w-10"></div>
-                </div>
-
-                <!-- Info do Usuário -->
-                <div class="glass-card rounded-[28px] p-5 flex items-center space-x-4 shadow-sm">
-                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-stone-900 to-amber-800 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                        V
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-stone-900">Vikas Sharma</h3>
-                        <p class="text-xs text-stone-500 font-medium">Membro Ativo</p>
-                    </div>
-                </div>
-
-                <!-- Estatísticas -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="glass-card rounded-[28px] p-4 text-center shadow-sm">
-                        <span id="stat-sessions" class="text-2xl font-extrabold text-stone-900 block mb-1">24</span>
-                        <span class="text-[10px] text-stone-500 uppercase tracking-wider font-bold">Sessões Totais</span>
-                    </div>
-                    <div class="glass-card rounded-[28px] p-4 text-center shadow-sm">
-                        <span id="stat-hours" class="text-2xl font-extrabold text-amber-800 block mb-1">18.5h</span>
-                        <span class="text-[10px] text-stone-500 uppercase tracking-wider font-bold">Tempo Focado</span>
-                    </div>
-                </div>
-
-                <!-- Barra de Meta -->
-                <div class="glass-card rounded-[28px] p-5 space-y-3 shadow-sm">
-                    <div class="flex justify-between text-xs font-bold">
-                        <span class="text-stone-800">Meta Semanal</span>
-                        <span id="stat-goal" class="text-amber-800">5 de 7 dias</span>
-                    </div>
-                    <div class="w-full bg-stone-300/60 h-2.5 rounded-full overflow-hidden border border-white/80">
-                        <div id="stat-goal-bar" class="bg-gradient-to-r from-stone-900 to-amber-700 h-full rounded-full transition-all duration-500" style="width: 71%;"></div>
-                    </div>
-                </div>
-
-                <button onclick="navigateTo('home')" class="w-full py-3.5 glass-card hover:bg-white/80 rounded-2xl text-xs font-bold text-stone-800 transition shadow-sm">
-                    Voltar ao Início
-                </button>
-            </section>
-
-        </main>
-
-        <!-- BARRA DE NAVEGAÇÃO INFERIOR (TAB BAR) -->
-        <nav class="absolute bottom-0 left-0 right-0 z-30 glass-card border-t border-white/60 px-6 py-3.5 flex justify-between items-center backdrop-blur-2xl">
-            <button onclick="navigateTo('home')" id="nav-btn-home" class="text-stone-900 flex flex-col items-center transition scale-110">
-                <i class="fa-solid fa-house text-lg"></i>
-            </button>
-            <button onclick="navigateTo('programas')" id="nav-btn-programas" class="text-stone-400 hover:text-stone-800 flex flex-col items-center transition">
-                <i class="fa-solid fa-compass text-lg"></i>
-            </button>
-            <button onclick="navigateTo('player')" id="nav-btn-player" class="text-stone-400 hover:text-stone-800 flex flex-col items-center transition">
-                <i class="fa-solid fa-wave-square text-lg"></i>
-            </button>
-            <button onclick="navigateTo('perfil')" id="nav-btn-perfil" class="text-stone-400 hover:text-stone-800 flex flex-col items-center transition">
-                <i class="fa-solid fa-user text-lg"></i>
-            </button>
-        </nav>
-
-    </div>
-
-    <!-- JavaScript com Lógica Funcional Completa -->
-    <script>
-        let appState = {
-            totalSessions: 24,
-            totalMinutes: 1110,
-            weeklyDays: 5,
-            currentScreen: 'home'
-        };
-
-        if (localStorage.getItem('reliefMindStateLight')) {
-            appState = JSON.parse(localStorage.getItem('reliefMindStateLight'));
-        }
-
-        function saveState() {
-            localStorage.setItem('reliefMindStateLight', JSON.stringify(appState));
-            updateProfileUI();
-        }
-
-        function updateProfileUI() {
-            document.getElementById('stat-sessions').innerText = appState.totalSessions;
-            const hours = (appState.totalMinutes / 60).toFixed(1);
-            document.getElementById('stat-hours').innerText = hours + 'h';
-            document.getElementById('stat-goal').innerText = `${appState.weeklyDays} de 7 dias`;
-            const percent = Math.min(Math.round((appState.weeklyDays / 7) * 100), 100);
-            document.getElementById('stat-goal-bar').style.width = percent + '%';
-        }
-
-        function navigateTo(screenName) {
-            const screens = document.querySelectorAll('.screen-view');
-            screens.forEach(screen => screen.classList.add('hidden'));
-
-            const targetScreen = document.getElementById(`screen-${screenName}`);
-            if (targetScreen) {
-                targetScreen.classList.remove('hidden');
-                appState.currentScreen = screenName;
-            }
-
-            const navButtons = ['home', 'programas', 'player', 'perfil'];
-            navButtons.forEach(btn => {
-                const el = document.getElementById(`nav-btn-${btn}`);
-                if (el) {
-                    if (btn === screenName) {
-                        el.classList.remove('text-stone-400');
-                        el.classList.add('text-stone-900', 'scale-110');
-                    } else {
-                        el.classList.remove('text-stone-900', 'scale-110');
-                        el.classList.add('text-stone-400');
-                    }
-                }
-            });
-
-            document.querySelector('main').scrollTop = 0;
-            if (screenName === 'perfil') updateProfileUI();
-        }
-
-        let playerTimer = null;
-        let isPlaying = false;
-        let currentSeconds = 0;
-        let maxSecondsDuration = 265;
-
-        function startSession(title, duration) {
-            document.getElementById('player-title').innerText = title;
-            maxSecondsDuration = duration;
-            currentSeconds = 0;
-            isPlaying = true;
-            
-            appState.totalSessions += 1;
-            appState.totalMinutes += Math.round(duration / 60);
-            if(appState.weeklyDays < 7) appState.weeklyDays += 1;
-            saveState();
-
-            navigateTo('player');
-            startPlayerInterval();
-        }
-
-        function formatTime(sec) {
-            const m = Math.floor(sec / 60);
-            const s = sec % 60;
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
-        }
-
-        function startPlayerInterval() {
-            clearInterval(playerTimer);
-            const playIcon = document.getElementById('master-play-icon');
-            playIcon.className = "fa-solid fa-pause text-xl";
-
-            playerTimer = setInterval(() => {
-                if (isPlaying) {
-                    currentSeconds++;
-                    if (currentSeconds > maxSecondsDuration) {
-                        currentSeconds = maxSecondsDuration;
-                        toggleMasterPlay();
-                    }
-                    updatePlayerUI();
-                }
-            }, 1000);
-        }
-
-        function updatePlayerUI() {
-            document.getElementById('player-current-time').innerText = formatTime(currentSeconds);
-            document.getElementById('player-total-duration').innerText = formatTime(maxSecondsDuration);
-            const percent = (currentSeconds / maxSecondsDuration) * 100;
-            document.getElementById('player-progress-bar').style.width = percent + '%';
-        }
-
-        function toggleMasterPlay() {
-            isPlaying = !isPlaying;
-            const playIcon = document.getElementById('master-play-icon');
-            if (isPlaying) {
-                playIcon.className = "fa-solid fa-pause text-xl";
-                document.getElementById('player-status').innerText = "Aproveite sua jornada de foco.";
-            } else {
-                playIcon.className = "fa-solid fa-play text-xl";
-                document.getElementById('player-status').innerText = "Sessão pausada.";
-            }
-        }
-
-        function skipPlayer(seconds) {
-            currentSeconds += seconds;
-            if (currentSeconds < 0) currentSeconds = 0;
-            if (currentSeconds > maxSecondsDuration) currentSeconds = maxSecondsDuration;
-            updatePlayerUI();
-        }
-
-        let breatheTimer = null;
-        let breatheSeconds = 0;
-        let isBreatingActive = false;
-
-        function toggleBreatheTimer() {
-            const icon = document.getElementById('breathe-icon');
-            isBreatingActive = !isBreatingActive;
-
-            if (isBreatingActive) {
-                icon.className = "fa-solid fa-pause text-xs";
-                breatheTimer = setInterval(() => {
-                    breatheSeconds++;
-                    if (breatheSeconds > 45) breatheSeconds = 0;
-                    document.getElementById('breathe-current').innerText = (breatheSeconds < 10 ? '0' : '') + breatheSeconds + 's';
-                }, 1000);
-            } else {
-                icon.className = "fa-solid fa-play text-xs";
-                clearInterval(breatheTimer);
-            }
-        }
-
-        setInterval(() => {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('current-time').innerText = `${hours}:${minutes}`;
-        }, 1000);
-
-        updateProfileUI();
-    </script>
-</body>
-</html>
+        <!-- Controles -->
+        <div class="w-full px-4 flex items
