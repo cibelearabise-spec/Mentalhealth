@@ -25,38 +25,43 @@
     }
     .no-scrollbar {
       -ms-overflow-style: none;
-      scrollbbar-width: none;
+      scrollbar-width: none;
     }
     
-    /* Estilo Original do Seu Card (Preservado) */
+    /* Estilo do Card Original */
     .original-card {
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.04);
     }
 
-    /* Gradiente de Fundo para as Telas Seguintes */
+    /* Gradiente de Fundo para as Telas Seguintes com Clarão Laranja */
     .app-gradient-bg {
-      background: linear-gradient(145deg, #fbf6ee 0%, #f5ece0 50%, #e6d9c2 100%);
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.22) 0%, rgba(251, 246, 238, 1) 60%);
+    }
+
+    /* Fundo Imersivo do Player */
+    .player-bg {
+      background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #0c0a09 100%);
     }
   </style>
 </head>
-<body class="bg-[#26221c] flex items-center justify-center min-h-screen p-4">
+<body class="bg-[#26221c] flex items-center justify-center min-h-screen p-0 sm:p-4">
 
-  <!-- Elemento de Áudio -->
+  <!-- Elemento de Áudio puxando da Raiz do GitHub -->
   <audio id="relax-audio" loop>
     <source src="relax.mp3" type="audio/mp3">
     Seu navegador não suporta áudio.
   </audio>
 
-  <!-- Container do Smartphone -->
-  <div class="relative w-[390px] h-[844px] bg-white rounded-[48px] overflow-hidden shadow-2xl border-[8px] border-[#383127] flex flex-col justify-between text-stone-900 select-none">
+  <!-- Container Principal do Smartphone -->
+  <div class="relative w-full sm:w-[390px] h-screen sm:h-[844px] bg-[#fbf6ee] sm:rounded-[48px] overflow-hidden shadow-2xl sm:border-[8px] sm:border-[#383127] flex flex-col justify-between text-stone-900 select-none">
 
-    <!-- Barra de Status iOS -->
-    <div class="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-7 pt-4 pb-2 bg-white/50 backdrop-blur-sm pointer-events-none text-stone-900">
+    <!-- Barra de Status iOS Fixa -->
+    <div class="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-7 pt-4 pb-2 bg-transparent pointer-events-none text-stone-900">
       <span id="current-time" class="text-xs font-semibold tracking-tight">11:38</span>
-      <div class="w-24 h-7 bg-black rounded-full flex items-center justify-center">
-        <div class="w-16 h-1.5 bg-stone-900 rounded-full"></div>
+      <div class="w-24 h-6 bg-black rounded-full flex items-center justify-center pointer-events-auto">
+        <div class="w-12 h-1.5 bg-stone-900 rounded-full"></div>
       </div>
       <div class="flex items-center gap-1.5 text-xs text-stone-700">
         <i class="fa-solid fa-signal text-[10px]"></i>
@@ -67,21 +72,20 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 1: CAPA / SPLASH SCREEN (A imagem com o mar) -->
+    <!-- TELA 1: CAPA / SPLASH (✨ Brilhos) -->
     <!-- ======================================================== -->
-    <div id="screen-splash" class="screen active relative w-full h-full flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white">
-      
+    <div id="screen-splash" class="screen active absolute inset-0 flex flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-20">
       <div class="absolute inset-0 z-0">
         <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
       </div>
 
-      <div class="relative z-10 flex justify-between items-center w-full">
+      <div class="relative z-10 flex justify-between items-center w-full pt-4">
         <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">←</button>
         <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">⋮</button>
       </div>
 
-      <div class="relative z-10 flex flex-col justify-end h-full pb-8">
+      <div class="relative z-10 flex flex-col justify-end h-full pb-4">
         <div class="self-start px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs shadow-md">
           <span>🌿</span> Aivo Calm
         </div>
@@ -97,7 +101,7 @@
         <div class="flex items-center gap-3">
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
-          <button onclick="startSession()" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
+          <button onclick="navigateTo('home')" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
             Play now <span>▶</span>
           </button>
         </div>
@@ -106,42 +110,41 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: HOME / DASHBOARD (Com o fundo gradiente e SEUS CARDS) -->
+    <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) -->
     <!-- ======================================================== -->
-    <div id="screen-home" class="screen app-gradient-bg relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-y-auto no-scrollbar">
+    <div id="screen-home" class="screen absolute inset-0 app-gradient-bg flex flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-20">
       
-      <div class="relative z-10 px-6 pt-10 flex justify-between items-center">
-        <button onclick="startSession()" class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm">
+      <div class="flex justify-between items-center pt-2">
+        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm">
           <i class="fa-solid fa-gear text-lg"></i>
-        </button>
-        <button onclick="navigateTo('perfil')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
+        </div>
+        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
           <i class="fa-solid fa-bars text-lg"></i>
         </button>
       </div>
 
-      <div class="relative z-10 px-6 mt-6 flex flex-col gap-2">
+      <div class="mt-4 flex flex-col gap-2">
         <span class="inline-block px-4 py-1.5 original-card text-xs text-stone-700 font-semibold tracking-wide w-fit shadow-sm">
             <i class="fa-solid fa-leaf text-green-700 mr-1.5"></i>Recommended
         </span>
         <h1 class="text-4xl font-bold tracking-tight text-stone-900">Hi, Vikas</h1>
       </div>
 
-      <div class="relative z-10 px-6 mt-8 flex flex-col gap-5">
-        <!-- Card Grande "ReliefMind" -->
+      <div class="mt-6 flex flex-col gap-4 mb-auto">
+        <!-- Card Grande -->
         <div class="original-card p-6 relative shadow-md">
             <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">ReliefMind</h2>
             <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium pr-8">
                 A mindful space to slow down, breathe deeply and reconnect with yourself.
             </p>
-            <button onclick="startSession()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95">
+            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95">
                 Start Session Now
             </button>
         </div>
 
         <!-- Grid de Cards Menores -->
         <div class="grid grid-cols-2 gap-4">
-          <!-- Card 1: Listen Audio -->
-          <div onclick="startSession()" class="original-card p-5 flex flex-col justify-between h-48 cursor-pointer hover:opacity-95 transition shadow-md">
+          <div onclick="playAudioAndOpenPlayer()" class="original-card p-5 flex flex-col justify-between h-44 cursor-pointer hover:opacity-95 transition shadow-md">
             <div class="flex justify-between items-start">
               <span class="text-sm font-bold text-stone-900">Listen Audio</span>
               <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600">
@@ -149,22 +152,18 @@
               </div>
             </div>
             <div>
-                <div class="flex items-center space-x-1.5 h-8 mb-2 text-red-500">
-                    <span class="w-1 h-4 bg-stone-200 rounded-full"></span>
-                    <span class="w-1 h-8 bg-red-500 rounded-full"></span>
-                    <span class="w-1 h-6 bg-red-600 rounded-full animate-pulse"></span>
-                    <span class="w-1 h-5 bg-red-500 rounded-full"></span>
-                    <span class="w-1 h-9 bg-red-600 rounded-full"></span>
-                    <span class="w-1 h-5 bg-red-500 rounded-full animate-pulse"></span>
-                    <span class="w-1 h-7 bg-red-600 rounded-full"></span>
+                <div class="flex items-center space-x-1.5 h-6 mb-2 text-red-500">
                     <span class="w-1 h-3 bg-stone-200 rounded-full"></span>
+                    <span class="w-1 h-6 bg-red-500 rounded-full"></span>
+                    <span class="w-1 h-5 bg-red-600 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-4 bg-red-500 rounded-full"></span>
+                    <span class="w-1 h-7 bg-red-600 rounded-full"></span>
                 </div>
                 <span class="text-[11px] text-stone-600 font-medium">4:26 min</span>
             </div>
           </div>
 
-          <!-- Card 2: Play Video -->
-          <div onclick="startSession()" class="original-card p-5 flex flex-col justify-between h-48 cursor-pointer hover:opacity-95 transition shadow-md">
+          <div onclick="playAudioAndOpenPlayer()" class="original-card p-5 flex flex-col justify-between h-44 cursor-pointer hover:opacity-95 transition shadow-md">
             <div class="flex justify-between items-start">
                 <span class="text-sm font-bold text-stone-900">Play Video</span>
                 <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600">
@@ -172,70 +171,216 @@
                 </div>
             </div>
             <div>
-                <div class="flex items-center space-x-1.5 h-8 mb-2 text-stone-400">
-                    <span class="w-1 h-7 bg-stone-400 rounded-full"></span>
-                    <span class="w-1 h-5 bg-stone-300 rounded-full animate-pulse"></span>
-                    <span class="w-1 h-9 bg-red-600 rounded-full"></span>
-                    <span class="w-1 h-6 bg-stone-400 rounded-full"></span>
-                    <span class="w-1 h-8 bg-stone-400 rounded-full animate-pulse"></span>
-                    <span class="w-1 h-5 bg-stone-300 rounded-full"></span>
+                <div class="flex items-center space-x-1.5 h-6 mb-2 text-stone-400">
+                    <span class="w-1 h-5 bg-stone-400 rounded-full"></span>
+                    <span class="w-1 h-3 bg-stone-300 rounded-full animate-pulse"></span>
+                    <span class="w-1 h-7 bg-red-600 rounded-full"></span>
+                    <span class="w-1 h-4 bg-stone-400 rounded-full"></span>
                 </div>
                 <span class="text-[11px] text-stone-600 font-medium">6:32 min</span>
             </div>
           </div>
         </div>
 
-        <!-- Cards Inferiores (Pílulas) -->
+        <!-- Categorias Inferiores -->
         <div class="grid grid-cols-3 gap-3 pt-1">
-          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
-            <span class="text-xs text-stone-800 font-semibold">Mind Relief</span>
-          </div>
-          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
-            <span class="text-xs text-stone-800 font-semibold">Meditation</span>
-          </div>
-          <div onclick="navigateTo('programas')" class="original-card p-3.5 text-center cursor-pointer hover:opacity-95 transition shadow-sm">
-            <span class="text-xs text-stone-800 font-semibold">Music</span>
-          </div>
+          <div class="original-card p-3 text-center cursor-pointer shadow-sm"><span class="text-xs text-stone-800 font-semibold">Mind</span></div>
+          <div class="original-card p-3 text-center cursor-pointer shadow-sm"><span class="text-xs text-stone-800 font-semibold">Meditation</span></div>
+          <div class="original-card p-3 text-center cursor-pointer shadow-sm"><span class="text-xs text-stone-800 font-semibold">Music</span></div>
         </div>
       </div>
     </div>
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER / NOW PLAYING (Com o fundo gradiente) -->
+    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração) -->
     <!-- ======================================================== -->
-    <div id="screen-player" class="screen app-gradient-bg relative w-full h-full flex-col justify-between pt-12 pb-24 overflow-hidden text-stone-900">
+    <div id="screen-player" class="screen absolute inset-0 player-bg flex flex-col justify-between pt-16 pb-24 px-6 text-stone-100 z-20">
       
-      <div class="relative z-10 px-6 pt-4 flex flex-col gap-6 h-full justify-center items-center">
-        <div class="w-full flex justify-between items-center absolute top-12 left-0 px-6">
-          <button onclick="navigateTo('screen-home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm">✕</button>
-          <span class="text-xs font-bold tracking-wider uppercase text-amber-800">Sessão em Andamento</span>
-          <div class="w-10"></div>
-        </div>
+      <div class="flex justify-between items-center pt-2">
+        <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-md">✕</button>
+        <span class="text-xs font-bold tracking-widest uppercase text-amber-300">Sessão Ativa</span>
+        <div class="w-10"></div>
+      </div>
 
-        <!-- Círculo Central -->
-        <div class="relative w-64 h-64 rounded-full bg-stone-100 flex items-center justify-center shadow-inner border border-white">
-            <div class="absolute inset-0 rounded-full border-2 border-dashed border-amber-200 animate-spin" style="animation-duration: 30s;"></div>
-            <div class="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg">
-                <i class="fa-solid fa-headphones text-6xl text-amber-300 animate-pulse"></i>
+      <div class="flex flex-col items-center justify-center my-auto space-y-6">
+        <!-- Círculo Visualizador com Brilho Abstrato -->
+        <div class="relative w-56 h-56 rounded-full bg-gradient-to-tr from-amber-500/20 to-stone-800 flex items-center justify-center shadow-2xl border border-white/10">
+            <div class="absolute inset-0 rounded-full border border-dashed border-amber-400/30 animate-spin" style="animation-duration: 25s;"></div>
+            <div class="w-40 h-40 rounded-full bg-stone-900/90 flex items-center justify-center shadow-inner">
+                <i id="player-center-icon" class="fa-solid fa-heart text-5xl text-amber-300 animate-pulse"></i>
             </div>
         </div>
 
-        <div class="text-center w-full px-4">
-            <h2 id="player-title" class="text-2xl font-bold text-stone-950 mb-1.5">Deep Relaxation Flow</h2>
-            <p id="player-status" class="text-sm text-stone-700">Aproveite sua jornada de foco.</p>
+        <div class="text-center">
+            <h2 class="text-xl font-bold text-white mb-1">Deep Relaxation Flow</h2>
+            <p id="player-status-text" class="text-xs text-stone-400">Tocando áudio da raiz (relax.mp3)</p>
         </div>
 
         <!-- Barra de Progresso -->
-        <div class="w-full px-4 space-y-2">
-          <div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
-            <div id="player-progress-bar" class="bg-stone-900 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+        <div class="w-full space-y-2">
+          <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+            <div id="player-progress-bar" class="bg-amber-400 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
           </div>
-          <div class="flex justify-between text-xs text-stone-600 font-medium font-mono">
-            <span id="player-current-time">0:00</span>
-            <span id="player-total-duration">4:25</span>
+          <div class="flex justify-between text-xs text-stone-400 font-mono">
+            <span id="player-time-current">0:00</span>
+            <span id="player-time-total">4:25</span>
           </div>
         </div>
 
         <!-- Controles -->
-        <div class="w-full px-4 flex items
+        <div class="flex items-center gap-6 mt-4">
+            <button onclick="skipTime(-10)" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition"><i class="fa-solid fa-rotate-left"></i></button>
+            <button onclick="togglePlayPause()" id="play-pause-btn" class="w-16 h-16 rounded-full bg-amber-400 text-stone-950 flex items-center justify-center text-xl shadow-xl hover:bg-amber-300 transition active:scale-95">
+                <i id="play-pause-icon" class="fa-solid fa-pause"></i>
+            </button>
+            <button onclick="skipTime(10)" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico) -->
+    <!-- ======================================================== -->
+    <div id="screen-insights" class="screen absolute inset-0 app-gradient-bg flex flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-20">
+      
+      <div class="flex justify-between items-center pt-2">
+        <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm">
+          <i class="fa-solid fa-chevron-left text-xs"></i>
+        </button>
+        <span class="text-sm font-bold tracking-wide text-stone-800">AI Insights & Progress</span>
+        <div class="w-10"></div>
+      </div>
+
+      <div class="mt-6 space-y-4 mb-auto">
+        <!-- Card de Perfil -->
+        <div class="original-card p-5 flex items-center space-x-4 shadow-sm">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-stone-900 to-amber-800 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                V
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-stone-900">Vikas Sharma</h3>
+                <p class="text-xs text-stone-500 font-medium">Membro Ativo • Aivo Calm</p>
+            </div>
+        </div>
+
+        <!-- Estatísticas Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="original-card p-5 text-center shadow-sm">
+                <span class="text-3xl font-extrabold text-stone-900 block mb-1">24</span>
+                <span class="text-[10px] text-stone-500 uppercase tracking-wider font-bold">Sessões Totais</span>
+            </div>
+            <div class="original-card p-5 text-center shadow-sm">
+                <span class="text-3xl font-extrabold text-amber-700 block mb-1">18.5h</span>
+                <span class="text-[10px] text-stone-500 uppercase tracking-wider font-bold">Tempo Focado</span>
+            </div>
+        </div>
+
+        <!-- Meta Semanal -->
+        <div class="original-card p-5 space-y-3 shadow-sm">
+            <div class="flex justify-between text-xs font-bold">
+                <span class="text-stone-800">Meta Semanal</span>
+                <span class="text-amber-700">5 de 7 dias</span>
+            </div>
+            <div class="w-full bg-stone-200 h-2.5 rounded-full overflow-hidden">
+                <div class="bg-stone-900 h-full rounded-full" style="width: 71%;"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Com a ordem exata pedida) -->
+    <!-- ======================================================== -->
+    <nav class="absolute bottom-0 left-0 right-0 z-40 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200 px-8 py-3.5 flex justify-between items-center shadow-lg">
+        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+        </button>
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition">
+            <i class="fa-solid fa-house text-lg"></i>
+        </button>
+        <button onclick="navigateTo('player')" id="nav-player" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+            <i class="fa-solid fa-heart text-lg"></i>
+        </button>
+        <button onclick="navigateTo('insights')" id="nav-insights" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+            <i class="fa-solid fa-chart-bar text-lg"></i>
+        </button>
+    </nav>
+
+  </div>
+
+  <!-- JavaScript de Navegação e Reprodução do Áudio da Raiz -->
+  <script>
+    function navigateTo(screenId) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById('screen-' + screenId).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('text-stone-900', 'scale-110');
+            btn.classList.add('text-stone-400');
+        });
+
+        const activeNav = document.getElementById('nav-' + screenId);
+        if (activeNav) {
+            activeNav.classList.remove('text-stone-400');
+            activeNav.classList.add('text-stone-900', 'scale-110');
+        }
+    }
+
+    const audio = document.getElementById('relax-audio');
+    let isPlaying = false;
+
+    function playAudioAndOpenPlayer() {
+        audio.play().then(() => {
+            isPlaying = true;
+            document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
+        }).catch(err => {
+            console.log("Autoplay bloqueado pelo navegador, clique no play do player:", err);
+        });
+        navigateTo('player');
+    }
+
+    function togglePlayPause() {
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            document.getElementById('play-pause-icon').className = "fa-solid fa-play";
+            document.getElementById('player-status-text').innerText = "Sessão pausada";
+        } else {
+            audio.play();
+            isPlaying = true;
+            document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
+            document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
+        }
+    }
+
+    function skipTime(seconds) {
+        audio.currentTime += seconds;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+            const current = audio.currentTime;
+            const duration = audio.duration;
+            const percent = (current / duration) * 100;
+            document.getElementById('player-progress-bar').style.width = percent + '%';
+            
+            const curM = Math.floor(current / 60);
+            const curS = Math.floor(current % 60);
+            document.getElementById('player-time-current').innerText = `${curM}:${curS < 10 ? '0' : ''}${curS}`;
+
+            const durM = Math.floor(duration / 60);
+            const durS = Math.floor(duration % 60);
+            document.getElementById('player-time-total').innerText = `${durM}:${durS < 10 ? '0' : ''}${durS}`;
+        }
+    });
+
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('current-time').innerText = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    }, 1000);
+  </script>
+</body>
+</html>
