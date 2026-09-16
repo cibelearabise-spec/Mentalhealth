@@ -67,9 +67,8 @@
 
   <!-- Elemento de Áudio puxando diretamente da Raiz do Repositório -->
   <audio id="relax-audio" preload="auto" loop>
-    <source src="./relax.mp3" type="audio/mpeg">
-    <source src="relax.mp3" type="audio/mp3">
-    Seu navegador não suporta áudio.
+    <source src="relax.mp3" type="audio/mpeg">
+    <source src="./relax.mp3" type="audio/mp3">
   </audio>
 
   <!-- Container Principal do Smartphone -->
@@ -95,10 +94,10 @@
     <div id="screen-home" class="screen active absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer" title="Configurações">
+        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer">
           <i class="fa-solid fa-gear text-lg"></i>
         </div>
-        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm" title="Notificações / Insights">
+        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
           <i class="fa-solid fa-bell text-base"></i>
         </button>
       </div>
@@ -111,14 +110,14 @@
       </div>
 
       <div class="relative z-10 mt-6 flex flex-col gap-4 mb-auto">
-        <!-- Card Grande -->
+        <!-- Card Grande com Ação de Tocar o Áudio -->
         <div class="original-card p-6 relative shadow-md">
             <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">ReliefMind</h2>
             <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium pr-8">
                 A mindful space to slow down, breathe deeply and reconnect with yourself.
             </p>
-            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95">
-                Start Session Now
+            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
+                <span>Start Session Now</span> <i class="fa-solid fa-play text-xs"></i>
             </button>
         </div>
 
@@ -202,6 +201,7 @@
         <div class="flex items-center gap-3">
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
+          <!-- Botão Play Now da Capa agora dispara o áudio -->
           <button onclick="playAudioAndOpenPlayer()" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
             Play now <span>▶</span>
           </button>
@@ -232,7 +232,7 @@
 
         <div class="text-center">
             <h2 class="text-xl font-bold text-stone-900 mb-1">Deep Relaxation Flow</h2>
-            <p id="player-status-text" class="text-xs text-stone-600 font-medium">Carregando relax.mp3...</p>
+            <p id="player-status-text" class="text-xs text-stone-600 font-medium">Toque no play para iniciar o áudio</p>
         </div>
 
         <!-- Barra de Progresso -->
@@ -333,7 +333,7 @@
 
   </div>
 
-  <!-- JavaScript de Navegação e Reprodução Corrigido -->
+  <!-- JavaScript atualizado para forçar a execução do áudio -->
   <script>
     function navigateTo(screenId) {
         document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -354,25 +354,19 @@
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
 
-    audio.addEventListener('error', (e) => {
-        console.error("Erro ao carregar o arquivo relax.mp3:", e);
-        document.getElementById('player-status-text').innerText = "Erro: relax.mp3 não encontrado na raiz";
-    });
-
-    audio.addEventListener('canplaythrough', () => {
-        console.log("Arquivo relax.mp3 carregado com sucesso!");
-    });
-
     function playAudioAndOpenPlayer() {
+        navigateTo('player'); // Vai direto para a tela do coração
+        
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-            document.getElementById('player-status-text').innerText = "Tocando relax.mp3 da raiz";
+            document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
         }).catch(err => {
-            console.log("Bloqueio de autoplay pelo navegador:", err);
-            document.getElementById('player-status-text').innerText = "Toque no play para iniciar o áudio";
+            console.log("Bloqueio de autoplay:", err);
+            isPlaying = false;
+            document.getElementById('play-pause-icon').className = "fa-solid fa-play";
+            document.getElementById('player-status-text').innerText = "Clique no botão Play para ouvir";
         });
-        navigateTo('player');
     }
 
     function togglePlayPause() {
@@ -385,10 +379,9 @@
             audio.play().then(() => {
                 isPlaying = true;
                 document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-                document.getElementById('player-status-text').innerText = "Tocando relax.mp3 da raiz";
+                document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
             }).catch(err => {
                 console.log("Erro ao reproduzir:", err);
-                document.getElementById('player-status-text').innerText = "Erro ao reproduzir áudio";
             });
         }
     }
