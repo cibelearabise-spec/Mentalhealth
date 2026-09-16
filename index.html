@@ -48,10 +48,8 @@
 </head>
 <body class="bg-[#26221c] flex items-center justify-center min-h-screen p-0 sm:p-4">
 
-  <!-- Áudio apontando corretamente para o arquivo na pasta musicas -->
-  <audio id="relax-audio" preload="auto" loop>
-    <source src="musicas/Golden_Empire_Frequency.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Elemento de áudio dinâmico gerenciado pelo JavaScript -->
+  <audio id="relax-audio" preload="auto"></audio>
 
   <!-- Container do Smartphone -->
   <div class="relative w-full sm:w-[390px] h-screen sm:h-[844px] bg-[#fbf6ee] sm:rounded-[48px] overflow-hidden shadow-2xl sm:border-[8px] sm:border-[#383127] flex flex-col justify-between text-stone-900 select-none">
@@ -104,7 +102,7 @@
         <div class="flex items-center gap-3">
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
-          <button onclick="playAudioAndOpenPlayer()" class="flex-1 py-4 bg-amber-500 text-stone-950 rounded-full font-bold flex items-center justify-center gap-2 shadow-2xl hover:bg-amber-400 transition active:scale-95 text-sm">
+          <button onclick="playIndex(0)" class="flex-1 py-4 bg-amber-500 text-stone-950 rounded-full font-bold flex items-center justify-center gap-2 shadow-2xl hover:bg-amber-400 transition active:scale-95 text-sm">
             Tocar Áudio <span>▶</span>
           </button>
         </div>
@@ -131,8 +129,12 @@
       <div class="relative z-10 mt-6 flex flex-col gap-4 mb-auto">
         <div class="original-card p-6 relative shadow-md">
             <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">Respire Fundo</h2>
-            <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium">Toque abaixo para iniciar o áudio de relaxamento.</p>
-            <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg">Tocar Áudio</button>
+            <p class="text-xs text-stone-700 leading-relaxed mb-4 font-medium">Escolha uma música abaixo:</p>
+            
+            <!-- Lista de Músicas Dinâmica -->
+            <div id="playlist-container" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+              <p class="text-xs text-stone-500">Carregando músicas...</p>
+            </div>
         </div>
       </div>
     </div>
@@ -144,19 +146,21 @@
     <div id="screen-player" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
         <button onclick="navigateTo('splash')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">Golden Empire (Pasta)</span>
+        <span id="player-genre" class="text-xs font-bold tracking-widest uppercase text-amber-800">Relaxamento</span>
         <div class="w-10"></div>
       </div>
 
       <div class="relative z-10 flex flex-col items-center justify-center my-auto space-y-6">
-        <div class="relative w-56 h-56 rounded-full bg-gradient-to-tr from-amber-200/50 to-stone-200/40 flex items-center justify-center shadow-2xl border border-white/60 backdrop-blur-md">
-            <div class="w-40 h-40 rounded-full bg-stone-900 flex items-center justify-center shadow-inner">
-                <i class="fa-solid fa-heart text-5xl text-amber-300 animate-pulse"></i>
+        <div class="relative w-56 h-56 rounded-full bg-gradient-to-tr from-amber-200/50 to-stone-200/40 flex items-center justify-center shadow-2xl border border-white/60 backdrop-blur-md overflow-hidden">
+            <img id="player-cover" src="" alt="Capa" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+            <div class="absolute inset-0 bg-stone-950/20"></div>
+            <div class="relative z-10 w-16 h-16 rounded-full bg-stone-900/80 backdrop-blur-md flex items-center justify-center shadow-inner text-amber-300">
+                <i class="fa-solid fa-music text-2xl animate-pulse"></i>
             </div>
         </div>
 
         <div class="text-center">
-            <h2 class="text-xl font-bold text-stone-900 mb-1">Golden Empire Frequency</h2>
+            <h2 id="player-title" class="text-xl font-bold text-stone-900 mb-1">Carregando...</h2>
             <p id="player-status-text" class="text-xs text-stone-600 font-medium">Pronto para reproduzir</p>
         </div>
 
@@ -170,9 +174,15 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-6 mt-4">
+        <div class="flex items-center gap-6 mt-2">
+            <button onclick="prevTrack()" class="w-12 h-12 rounded-full bg-stone-200/80 text-stone-800 flex items-center justify-center text-base shadow-md hover:bg-stone-300 transition">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
             <button onclick="togglePlayPause()" id="play-pause-btn" class="w-16 h-16 rounded-full bg-stone-900 text-amber-300 flex items-center justify-center text-xl shadow-xl">
                 <i id="play-pause-icon" class="fa-solid fa-play"></i>
+            </button>
+            <button onclick="nextTrack()" class="w-12 h-12 rounded-full bg-stone-200/80 text-stone-800 flex items-center justify-center text-base shadow-md hover:bg-stone-300 transition">
+                <i class="fa-solid fa-forward-step"></i>
             </button>
         </div>
       </div>
@@ -219,30 +229,64 @@
   </div>
 
   <script>
-    function navigateTo(screenId) {
-        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
-        document.getElementById('screen-' + screenId).classList.add('active');
-
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('text-stone-900', 'scale-110');
-            btn.classList.add('text-stone-400');
-        });
-
-        const activeNav = document.getElementById('nav-' + screenId);
-        if (activeNav) {
-            activeNav.classList.remove('text-stone-400');
-            activeNav.classList.add('text-stone-900', 'scale-110');
-        }
-    }
-
+    let playlist = [];
+    let currentIndex = 0;
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
 
-    function playAudioAndOpenPlayer() {
+    // Carregar o arquivo musicas.json ao iniciar
+    window.addEventListener('DOMContentLoaded', () => {
+        fetch('musicas.json')
+            .then(res => res.json())
+            .then(data => {
+                playlist = data;
+                renderPlaylist();
+                if (playlist.length > 0) {
+                    loadTrack(0);
+                }
+            })
+            .catch(err => {
+                console.error("Erro ao carregar musicas.json:", err);
+                document.getElementById('playlist-container').innerHTML = '<p class="text-xs text-red-500">Erro ao carregar lista de músicas.</p>';
+            });
+    });
+
+    function renderPlaylist() {
+        const container = document.getElementById('playlist-container');
+        container.innerHTML = '';
+        playlist.forEach((track, index) => {
+            container.innerHTML += `
+                <div onclick="playIndex(${index})" class="flex items-center justify-between p-2.5 rounded-xl bg-white/60 hover:bg-white cursor-pointer transition border border-stone-200/50 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-800 text-xs font-bold">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-stone-900">${track.title}</p>
+                            <p class="text-[10px] text-stone-500">${track.genre}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function loadTrack(index) {
+        if (playlist.length === 0) return;
+        currentIndex = index;
+        const track = playlist[currentIndex];
+        audio.src = track.audioUrl;
+        document.getElementById('player-title').innerText = track.title;
+        document.getElementById('player-genre').innerText = track.genre;
+        document.getElementById('player-cover').src = track.coverUrl;
+    }
+
+    function playIndex(index) {
+        loadTrack(index);
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-            document.getElementById('player-status-text').innerText = "Tocando áudio";
+            document.getElementById('player-status-text').innerText = "Tocando agora";
         }).catch(err => {
             console.log("Autoplay bloqueado:", err);
             document.getElementById('player-status-text').innerText = "Toque no play para iniciar";
@@ -251,6 +295,7 @@
     }
 
     function togglePlayPause() {
+        if (playlist.length === 0) return;
         if (isPlaying) {
             audio.pause();
             isPlaying = false;
@@ -260,9 +305,21 @@
             audio.play().then(() => {
                 isPlaying = true;
                 document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-                document.getElementById('player-status-text').innerText = "Tocando áudio";
+                document.getElementById('player-status-text').innerText = "Tocando agora";
             });
         }
+    }
+
+    function nextTrack() {
+        if (playlist.length === 0) return;
+        let nextIdx = (currentIndex + 1) % playlist.length;
+        playIndex(nextIdx);
+    }
+
+    function prevTrack() {
+        if (playlist.length === 0) return;
+        let prevIdx = (currentIndex - 1 + playlist.length) % playlist.length;
+        playIndex(prevIdx);
     }
 
     function seekAudio(event) {
@@ -285,6 +342,26 @@
             document.getElementById('player-time-total').innerText = `${durM}:${durS < 10 ? '0' : ''}${durS}`;
         }
     });
+
+    audio.addEventListener('ended', () => {
+        nextTrack();
+    });
+
+    function navigateTo(screenId) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById('screen-' + screenId).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('text-stone-900', 'scale-110');
+            btn.classList.add('text-stone-400');
+        });
+
+        const activeNav = document.getElementById('nav-' + screenId);
+        if (activeNav) {
+            activeNav.classList.remove('text-stone-400');
+            activeNav.classList.add('text-stone-900', 'scale-110');
+        }
+    }
 
     setInterval(() => {
         const now = new Date();
