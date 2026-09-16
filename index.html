@@ -234,7 +234,6 @@
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
 
-    // Carregar o arquivo musicas.json ao iniciar
     window.addEventListener('DOMContentLoaded', () => {
         fetch('musicas.json')
             .then(res => res.json())
@@ -288,7 +287,9 @@
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
             document.getElementById('player-status-text').innerText = "Tocando agora";
         }).catch(err => {
-            console.log("Autoplay bloqueado:", err);
+            console.log("Erro ao reproduzir:", err);
+            isPlaying = false;
+            document.getElementById('play-pause-icon').className = "fa-solid fa-play";
             document.getElementById('player-status-text').innerText = "Toque no play para iniciar";
         });
         navigateTo('player');
