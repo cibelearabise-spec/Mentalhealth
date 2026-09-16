@@ -14,7 +14,6 @@
     .font-calligraphy {
       font-family: 'Great Vibes', cursive;
     }
-    /* Sistema de Telas: por padrão ficam escondidas, a ativa aparece */
     .screen {
       display: none;
     }
@@ -35,8 +34,9 @@
       box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.04);
     }
 
+    /* Degradê refinado para as páginas seguintes */
     .app-gradient-bg {
-      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.22) 0%, rgba(251, 246, 238, 1) 60%);
+      background: linear-gradient(180deg, #fceeea 0%, #f7ecd9 40%, #f3e5d0 100%);
     }
 
     .player-bg {
@@ -108,7 +108,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) -->
+    <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) - COM DEGRADÊ -->
     <!-- ======================================================== -->
     <div id="screen-home" class="screen absolute inset-0 app-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
@@ -239,7 +239,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico) -->
+    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico) - COM DEGRADÊ -->
     <!-- ======================================================== -->
     <div id="screen-insights" class="screen absolute inset-0 app-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
@@ -309,7 +309,7 @@
 
   </div>
 
-  <!-- JavaScript de Navegação e Reprodução -->
+  <!-- JavaScript de Navegação e Reprodução Corrigido -->
   <script>
     function navigateTo(screenId) {
         document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -334,8 +334,10 @@
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
+            document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
         }).catch(err => {
             console.log("Autoplay bloqueado pelo navegador:", err);
+            navigateTo('player');
         });
         navigateTo('player');
     }
@@ -347,10 +349,13 @@
             document.getElementById('play-pause-icon').className = "fa-solid fa-play";
             document.getElementById('player-status-text').innerText = "Sessão pausada";
         } else {
-            audio.play();
-            isPlaying = true;
-            document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-            document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
+            audio.play().then(() => {
+                isPlaying = true;
+                document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
+                document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
+            }).catch(err => {
+                console.log("Erro ao reproduzir áudio:", err);
+            });
         }
     }
 
