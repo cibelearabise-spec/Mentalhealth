@@ -48,9 +48,9 @@
 </head>
 <body class="bg-[#26221c] flex items-center justify-center min-h-screen p-0 sm:p-4">
 
-  <!-- Áudio atualizado para a pasta musicas -->
+  <!-- Áudio apontando corretamente para o arquivo na pasta musicas -->
   <audio id="relax-audio" preload="auto" loop>
-    <source src="musicas/relax.mp3" type="audio/mpeg">
+    <source src="musicas/Golden_Empire_Frequency.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Container do Smartphone -->
@@ -71,16 +71,14 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA DA CAPA (✨ Estrelinha / Capa com foto fundo.jpg) -->
+    <!-- TELA DA CAPA -->
     <!-- ======================================================== -->
     <div id="screen-splash" class="screen active absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-25">
-      <!-- Imagem de Fundo da Capa -->
       <div class="absolute inset-0 z-0">
         <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20"></div>
       </div>
 
-      <!-- Topo da Capa -->
       <div class="relative z-10 flex justify-between items-center w-full pt-4">
         <button onclick="navigateTo('home')" class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">
           <i class="fa-solid fa-arrow-left"></i>
@@ -90,7 +88,6 @@
         </button>
       </div>
 
-      <!-- Conteúdo da Capa (Texto e Título com Caligrafia) -->
       <div class="relative z-10 flex flex-col justify-end h-full pb-4">
         <div class="self-start px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs shadow-md">
           <span>🌿</span> Saúde Mental
@@ -108,7 +105,7 @@
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
           <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
           <button onclick="playAudioAndOpenPlayer()" class="flex-1 py-4 bg-amber-500 text-stone-950 rounded-full font-bold flex items-center justify-center gap-2 shadow-2xl hover:bg-amber-400 transition active:scale-95 text-sm">
-            Play relax.mp3 <span>▶</span>
+            Tocar Áudio <span>▶</span>
           </button>
         </div>
       </div>
@@ -116,7 +113,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) -->
+    <!-- TELA 2: HOME / DASHBOARD -->
     <!-- ======================================================== -->
     <div id="screen-home" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
@@ -134,7 +131,7 @@
       <div class="relative z-10 mt-6 flex flex-col gap-4 mb-auto">
         <div class="original-card p-6 relative shadow-md">
             <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">Respire Fundo</h2>
-            <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium">Toque abaixo para iniciar o áudio relax.mp3 da pasta.</p>
+            <p class="text-xs text-stone-700 leading-relaxed mb-6 font-medium">Toque abaixo para iniciar o áudio de relaxamento.</p>
             <button onclick="playAudioAndOpenPlayer()" class="w-full py-4 bg-stone-900 text-stone-100 rounded-2xl text-sm font-semibold tracking-wide shadow-lg">Tocar Áudio</button>
         </div>
       </div>
@@ -142,12 +139,12 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração - relax.mp3) -->
+    <!-- TELA 3: PLAYER DE ÁUDIO -->
     <!-- ======================================================== -->
     <div id="screen-player" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
         <button onclick="navigateTo('splash')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">relax.mp3 (Pasta)</span>
+        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">Golden Empire (Pasta)</span>
         <div class="w-10"></div>
       </div>
 
@@ -159,7 +156,7 @@
         </div>
 
         <div class="text-center">
-            <h2 class="text-xl font-bold text-stone-900 mb-1">Áudio de Relaxamento</h2>
+            <h2 class="text-xl font-bold text-stone-900 mb-1">Golden Empire Frequency</h2>
             <p id="player-status-text" class="text-xs text-stone-600 font-medium">Pronto para reproduzir</p>
         </div>
 
@@ -183,7 +180,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 4: ESTATÍSTICAS / HUMOR (📊 Gráfico) -->
+    <!-- TELA 4: ESTATÍSTICAS / HUMOR -->
     <!-- ======================================================== -->
     <div id="screen-insights" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
@@ -245,7 +242,7 @@
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-            document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
+            document.getElementById('player-status-text').innerText = "Tocando áudio";
         }).catch(err => {
             console.log("Autoplay bloqueado:", err);
             document.getElementById('player-status-text').innerText = "Toque no play para iniciar";
@@ -263,7 +260,7 @@
             audio.play().then(() => {
                 isPlaying = true;
                 document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-                document.getElementById('player-status-text').innerText = "Tocando relax.mp3";
+                document.getElementById('player-status-text').innerText = "Tocando áudio";
             });
         }
     }
