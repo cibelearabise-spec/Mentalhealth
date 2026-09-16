@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentalhealth - App</title>
+  <title>Mental Health - App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,38 +36,38 @@
       box-shadow: 0 8px 32px 0 rgba(140, 110, 80, 0.08);
     }
 
-    /* Degradê Bege Luminoso com Silhuetas Abstratas e Partículas */
+    /* Degradê Bege Luminoso com Pontos de Luz e Silhuetas Abstratas */
     .luminous-gradient-bg {
       background: 
-        radial-gradient(circle at 80% 20%, rgba(255, 220, 180, 0.5) 0%, transparent 40%),
-        radial-gradient(circle at 10% 80%, rgba(245, 200, 150, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 245, 230, 0.6) 0%, transparent 70%),
+        radial-gradient(circle at 80% 20%, rgba(255, 220, 180, 0.6) 0%, transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(245, 200, 150, 0.5) 0%, transparent 55%),
+        radial-gradient(circle at 50% 50%, rgba(255, 245, 230, 0.7) 0%, transparent 75%),
         linear-gradient(135deg, #fceee3 0%, #f4e3cd 50%, #edd3b7 100%);
       position: relative;
     }
 
-    /* Silhuetas humanas abstratas suaves e pontos luminosos */
     .luminous-gradient-bg::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image: 
-        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.8) 2px, transparent 2px),
-        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.6) 1.5px, transparent 1.5px),
-        radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.9) 2px, transparent 2px),
-        radial-gradient(circle at 20% 75%, rgba(255, 255, 255, 0.5) 2.5px, transparent 2.5px),
-        radial-gradient(ellipse at 80% 85%, rgba(210, 175, 140, 0.25) 0%, transparent 45%),
-        radial-gradient(ellipse at 15% 25%, rgba(210, 175, 140, 0.2) 0%, transparent 40%);
-      background-size: 180px 180px, 220px 220px, 150px 150px, 250px 250px, 100% 100%, 100% 100%;
+        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.9) 2.5px, transparent 2.5px),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.7) 2px, transparent 2px),
+        radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.95) 3px, transparent 3px),
+        radial-gradient(circle at 20% 75%, rgba(255, 255, 255, 0.6) 2.5px, transparent 2.5px),
+        radial-gradient(ellipse at 75% 80%, rgba(210, 175, 140, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 25% 20%, rgba(210, 175, 140, 0.25) 0%, transparent 45%);
+      background-size: 160px 160px, 200px 200px, 140px 140px, 240px 240px, 100% 100%, 100% 100%;
       pointer-events: none;
-      opacity: 0.8;
+      opacity: 0.85;
     }
   </style>
 </head>
 <body class="bg-[#26221c] flex items-center justify-center min-h-screen p-0 sm:p-4">
 
-  <!-- Elemento de Áudio puxando da Raiz do GitHub -->
-  <audio id="relax-audio" loop>
+  <!-- Elemento de Áudio puxando diretamente da Raiz do Repositório -->
+  <audio id="relax-audio" preload="auto" loop>
+    <source src="./relax.mp3" type="audio/mpeg">
     <source src="relax.mp3" type="audio/mp3">
     Seu navegador não suporta áudio.
   </audio>
@@ -90,54 +90,16 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 1: CAPA / SPLASH (✨ Brilhos) -->
+    <!-- TELA 1: HOME / DASHBOARD (🏠 Casinha - Primeira aba) -->
     <!-- ======================================================== -->
-    <div id="screen-splash" class="screen active absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-20">
-      <div class="absolute inset-0 z-0">
-        <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 flex justify-between items-center w-full pt-4">
-        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">←</button>
-        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">⋮</button>
-      </div>
-
-      <div class="relative z-10 flex flex-col justify-end h-full pb-4">
-        <div class="self-start px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs shadow-md">
-          <span>🌿</span> Aivo Calm
-        </div>
-
-        <h1 class="text-3xl font-semibold tracking-tight leading-tight mb-3">
-          Relaxamento e <br><span class="font-calligraphy text-5xl text-amber-200 font-normal">Saúde Mental</span>
-        </h1>
-
-        <p class="text-xs text-white/80 leading-relaxed max-w-[280px] mb-8">
-          Siga um ritmo simples de respiração para relaxar os músculos e aquietar os pensamentos. Perfeito para uma pausa ou antes de dormir.
-        </p>
-
-        <div class="flex items-center gap-3">
-          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
-          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
-          <button onclick="navigateTo('home')" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
-            Play now <span>▶</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- ======================================================== -->
-    <!-- TELA 2: HOME / DASHBOARD (🏠 Casinha) - DEGRADÊ LUMINOSO -->
-    <!-- ======================================================== -->
-    <div id="screen-home" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
+    <div id="screen-home" class="screen active absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm">
+        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer" title="Configurações">
           <i class="fa-solid fa-gear text-lg"></i>
         </div>
-        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">
-          <i class="fa-solid fa-bars text-lg"></i>
+        <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm" title="Notificações / Insights">
+          <i class="fa-solid fa-bell text-base"></i>
         </button>
       </div>
 
@@ -211,13 +173,51 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração) - DEGRADÊ LUMINOSO -->
+    <!-- TELA 2: CAPA / SPLASH (✨ Estrelinha - Segunda aba) -->
+    <!-- ======================================================== -->
+    <div id="screen-splash" class="screen absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-25">
+      <div class="absolute inset-0 z-0">
+        <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 flex justify-between items-center w-full pt-4">
+        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">←</button>
+        <button class="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">⋮</button>
+      </div>
+
+      <div class="relative z-10 flex flex-col justify-end h-full pb-4">
+        <div class="self-start px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 mb-4 text-xs shadow-md">
+          <span>🌿</span> Aivo Calm
+        </div>
+
+        <h1 class="text-3xl font-semibold tracking-tight leading-tight mb-3">
+          Relaxamento e <br><span class="font-calligraphy text-5xl text-amber-200 font-normal">Saúde Mental</span>
+        </h1>
+
+        <p class="text-xs text-white/80 leading-relaxed max-w-[280px] mb-8">
+          Siga um ritmo simples de respiração para relaxar os músculos e aquietar os pensamentos. Perfeito para uma pausa ou antes de dormir.
+        </p>
+
+        <div class="flex items-center gap-3">
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
+          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
+          <button onclick="playAudioAndOpenPlayer()" class="flex-1 py-4 bg-stone-900 text-stone-100 rounded-full font-semibold flex items-center justify-center gap-2 shadow-2xl hover:bg-stone-800 transition active:scale-95 text-sm">
+            Play now <span>▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 3: PLAYER DE ÁUDIO (🤍 Coração - Terceira aba) -->
     <!-- ======================================================== -->
     <div id="screen-player" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
       
       <div class="relative z-10 flex justify-between items-center pt-2">
         <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm">✕</button>
-        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">Sessão Ativa</span>
+        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">Sessão Ativa (relax.mp3)</span>
         <div class="w-10"></div>
       </div>
 
@@ -232,17 +232,17 @@
 
         <div class="text-center">
             <h2 class="text-xl font-bold text-stone-900 mb-1">Deep Relaxation Flow</h2>
-            <p id="player-status-text" class="text-xs text-stone-600">Tocando áudio da raiz (relax.mp3)</p>
+            <p id="player-status-text" class="text-xs text-stone-600 font-medium">Carregando relax.mp3...</p>
         </div>
 
         <!-- Barra de Progresso -->
         <div class="w-full space-y-2">
-          <div class="w-full bg-stone-300/80 h-2 rounded-full overflow-hidden shadow-inner">
-            <div id="player-progress-bar" class="bg-amber-600 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+          <div class="w-full bg-stone-300/80 h-2 rounded-full overflow-hidden shadow-inner cursor-pointer" onclick="seekAudio(event)">
+            <div id="player-progress-bar" class="bg-amber-600 h-full rounded-full transition-all duration-150" style="width: 0%;"></div>
           </div>
           <div class="flex justify-between text-xs text-stone-600 font-mono font-medium">
             <span id="player-time-current">0:00</span>
-            <span id="player-time-total">4:25</span>
+            <span id="player-time-total">0:00</span>
           </div>
         </div>
 
@@ -250,7 +250,7 @@
         <div class="flex items-center gap-6 mt-4">
             <button onclick="skipTime(-10)" class="w-12 h-12 rounded-full original-card flex items-center justify-center text-stone-800 hover:bg-white transition shadow-sm"><i class="fa-solid fa-rotate-left"></i></button>
             <button onclick="togglePlayPause()" id="play-pause-btn" class="w-16 h-16 rounded-full bg-stone-900 text-amber-300 flex items-center justify-center text-xl shadow-xl hover:bg-stone-800 transition active:scale-95">
-                <i id="play-pause-icon" class="fa-solid fa-pause"></i>
+                <i id="play-pause-icon" class="fa-solid fa-play"></i>
             </button>
             <button onclick="skipTime(10)" class="w-12 h-12 rounded-full original-card flex items-center justify-center text-stone-800 hover:bg-white transition shadow-sm"><i class="fa-solid fa-rotate-right"></i></button>
         </div>
@@ -259,7 +259,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico) - DEGRADÊ LUMINOSO -->
+    <!-- TELA 4: AI INSIGHTS / ESTATÍSTICAS (📊 Gráfico - Quarta aba) -->
     <!-- ======================================================== -->
     <div id="screen-insights" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       
@@ -310,20 +310,24 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (Ordem do seu rascunho) -->
     <!-- ======================================================== -->
     <nav class="absolute bottom-0 left-0 right-0 z-50 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200/80 px-8 py-3.5 flex justify-between items-center shadow-lg">
-        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition">
-            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
-        </button>
-        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+        <!-- 1. Casinha (Home) -->
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition" title="Home">
             <i class="fa-solid fa-house text-lg"></i>
         </button>
-        <button onclick="navigateTo('player')" id="nav-player" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
+        <!-- 2. Estrelinha / Brilhos (Capa) -->
+        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Capa">
+            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+        </button>
+        <!-- 3. Coração (Player relax.mp3) -->
+        <button onclick="navigateTo('player')" id="nav-player" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Player">
             <i class="fa-solid fa-heart text-lg"></i>
         </button>
-        <button onclick="navigateTo('insights')" id="nav-insights" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition">
-            <i class="fa-solid fa-chart-bar text-lg"></i>
+        <!-- 4. Gráfico (Estatísticas / Humor) -->
+        <button onclick="navigateTo('insights')" id="nav-insights" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Estatísticas">
+            <i class="fa-solid fa-chart-column text-lg"></i>
         </button>
     </nav>
 
@@ -350,14 +354,23 @@
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
 
+    audio.addEventListener('error', (e) => {
+        console.error("Erro ao carregar o arquivo relax.mp3:", e);
+        document.getElementById('player-status-text').innerText = "Erro: relax.mp3 não encontrado na raiz";
+    });
+
+    audio.addEventListener('canplaythrough', () => {
+        console.log("Arquivo relax.mp3 carregado com sucesso!");
+    });
+
     function playAudioAndOpenPlayer() {
         audio.play().then(() => {
             isPlaying = true;
             document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-            document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
+            document.getElementById('player-status-text').innerText = "Tocando relax.mp3 da raiz";
         }).catch(err => {
-            console.log("Autoplay bloqueado pelo navegador:", err);
-            navigateTo('player');
+            console.log("Bloqueio de autoplay pelo navegador:", err);
+            document.getElementById('player-status-text').innerText = "Toque no play para iniciar o áudio";
         });
         navigateTo('player');
     }
@@ -372,15 +385,24 @@
             audio.play().then(() => {
                 isPlaying = true;
                 document.getElementById('play-pause-icon').className = "fa-solid fa-pause";
-                document.getElementById('player-status-text').innerText = "Tocando áudio da raiz (relax.mp3)";
+                document.getElementById('player-status-text').innerText = "Tocando relax.mp3 da raiz";
             }).catch(err => {
-                console.log("Erro ao reproduzir áudio:", err);
+                console.log("Erro ao reproduzir:", err);
+                document.getElementById('player-status-text').innerText = "Erro ao reproduzir áudio";
             });
         }
     }
 
     function skipTime(seconds) {
         audio.currentTime += seconds;
+    }
+
+    function seekAudio(event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const pos = (event.clientX - rect.left) / rect.width;
+        if (audio.duration) {
+            audio.currentTime = pos * audio.duration;
+        }
     }
 
     audio.addEventListener('timeupdate', () => {
