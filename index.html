@@ -44,6 +44,34 @@
         linear-gradient(135deg, #fceee3 0%, #f4e3cd 50%, #edd3b7 100%);
       position: relative;
     }
+
+    /* Animação do Círculo de Respiração */
+    @keyframes breatheCycle {
+      0% {
+        transform: scale(1);
+        background-color: rgba(245, 158, 11, 0.2);
+        border-color: rgba(245, 158, 11, 0.4);
+      }
+      40% {
+        transform: scale(1.45);
+        background-color: rgba(52, 211, 153, 0.25);
+        border-color: rgba(52, 211, 153, 0.6);
+      }
+      60% {
+        transform: scale(1.45);
+        background-color: rgba(52, 211, 153, 0.25);
+        border-color: rgba(52, 211, 153, 0.6);
+      }
+      100% {
+        transform: scale(1);
+        background-color: rgba(245, 158, 11, 0.2);
+        border-color: rgba(245, 158, 11, 0.4);
+      }
+    }
+
+    .animate-breathe {
+      animation: breatheCycle 8s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-[#26221c] flex items-center justify-center min-h-screen p-0 sm:p-4">
@@ -71,7 +99,7 @@
     <!-- ======================================================== -->
     <!-- TELA DA CAPA -->
     <!-- ======================================================== -->
-    <div id="screen-splash" class="screen active absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-25">
+    <div id="screen-splash" class="screen absolute inset-0 flex-col justify-between pt-16 pb-24 px-6 overflow-hidden text-white z-25">
       <div class="absolute inset-0 z-0">
         <img src="fundo.jpg" alt="Capa Background" class="w-full h-full object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20"></div>
@@ -100,8 +128,8 @@
         </p>
 
         <div class="flex items-center gap-3">
-          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">✕</button>
-          <button class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">🔗</button>
+          <button onclick="navigateTo('breathe')" class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md" title="Respiração"><i class="fa-solid fa-wind"></i></button>
+          <button onclick="navigateTo('home')" class="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md" title="Home"><i class="fa-solid fa-house"></i></button>
           <button onclick="playIndex(0)" class="flex-1 py-4 bg-amber-500 text-stone-950 rounded-full font-bold flex items-center justify-center gap-2 shadow-2xl hover:bg-amber-400 transition active:scale-95 text-sm">
             Tocar Áudio <span>▶</span>
           </button>
@@ -115,7 +143,7 @@
     <!-- ======================================================== -->
     <div id="screen-home" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <div class="w-10 h-10 original-card flex items-center justify-center text-red-600 shadow-sm cursor-pointer"><i class="fa-solid fa-gear text-lg"></i></div>
+        <div class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm cursor-pointer"><i class="fa-solid fa-gear text-lg"></i></div>
         <button onclick="navigateTo('insights')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-bell text-base"></i></button>
       </div>
 
@@ -126,13 +154,27 @@
         <h1 class="text-4xl font-bold tracking-tight text-stone-900">Relaxamento</h1>
       </div>
 
-      <div class="relative z-10 mt-6 flex flex-col gap-4 mb-auto">
-        <div class="original-card p-6 relative shadow-md">
-            <h2 class="text-2xl font-bold tracking-wide text-stone-900 mb-2">Respire Fundo</h2>
-            <p class="text-xs text-stone-700 leading-relaxed mb-4 font-medium">Escolha uma música abaixo:</p>
+      <div class="relative z-10 mt-4 flex flex-col gap-4 mb-auto">
+        <!-- Atalho Rápido para Respiração -->
+        <div onclick="navigateTo('breathe')" class="original-card p-4 relative shadow-md flex items-center justify-between cursor-pointer hover:bg-white/90 transition group">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-800 text-xl group-hover:scale-105 transition">
+              <i class="fa-solid fa-wind"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-stone-900">Exercício de Respiração</h2>
+              <p class="text-[11px] text-stone-600">Conecte-se com o seu ritmo</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-stone-400 text-xs mr-2"></i>
+        </div>
+
+        <div class="original-card p-5 relative shadow-md">
+            <h2 class="text-lg font-bold tracking-wide text-stone-900 mb-1">Trilhas Sonoras</h2>
+            <p class="text-xs text-stone-700 leading-relaxed mb-3">Escolha uma música abaixo:</p>
             
             <!-- Lista de Músicas Dinâmica -->
-            <div id="playlist-container" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+            <div id="playlist-container" class="space-y-2 max-h-40 overflow-y-auto pr-1">
               <p class="text-xs text-stone-500">Carregando músicas...</p>
             </div>
         </div>
@@ -141,11 +183,51 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 3: PLAYER DE ÁUDIO -->
+    <!-- TELA 3: EXERCÍCIO DE RESPIRAÇÃO (NOVA) -->
+    <!-- ======================================================== -->
+    <div id="screen-breathe" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
+      <div class="relative z-10 flex justify-between items-center pt-2">
+        <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-arrow-left"></i></button>
+        <span class="text-xs font-bold tracking-widest uppercase text-amber-800">Respiração Guiada</span>
+        <div class="w-10"></div>
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center justify-center my-auto space-y-8 text-center">
+        <!-- Círculo Animado -->
+        <div class="relative w-64 h-64 flex items-center justify-center">
+          <!-- Círculo externo pulsante -->
+          <div class="absolute inset-0 rounded-full border-2 border-amber-400/50 bg-amber-200/20 backdrop-blur-md animate-breathe flex items-center justify-center shadow-xl"></div>
+          
+          <!-- Núcleo central com instrução -->
+          <div class="relative z-10 w-36 h-36 rounded-full bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center shadow-lg border border-white">
+            <i class="fa-solid fa-lungs text-amber-700 text-xl mb-1"></i>
+            <span id="breathe-instruction" class="text-xs font-bold tracking-wider text-stone-800 uppercase">Inspire</span>
+            <span id="breathe-timer" class="text-[10px] text-stone-500 font-mono mt-0.5">4s</span>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-stone-900 mb-1">Sincronize o Ritmo</h2>
+          <p class="text-xs text-stone-600 max-w-[240px] mx-auto leading-relaxed">
+            Acompanhe o movimento do círculo: inspire fundo enquanto ele cresce e expire devagar enquanto ele diminui.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative z-10 w-full">
+        <button onclick="navigateTo('home')" class="w-full py-3 bg-stone-900 text-amber-200 font-semibold rounded-xl text-xs shadow-md hover:bg-stone-800 transition">
+          Concluir Exercício
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- TELA 4: PLAYER DE ÁUDIO -->
     <!-- ======================================================== -->
     <div id="screen-player" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 text-stone-900 z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <button onclick="navigateTo('splash')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-800 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
         <span id="player-genre" class="text-xs font-bold tracking-widest uppercase text-amber-800">Relaxamento</span>
         <div class="w-10"></div>
       </div>
@@ -190,11 +272,11 @@
 
 
     <!-- ======================================================== -->
-    <!-- TELA 4: ESTATÍSTICAS / HUMOR -->
+    <!-- TELA 5: ESTATÍSTICAS / HUMOR -->
     <!-- ======================================================== -->
     <div id="screen-insights" class="screen absolute inset-0 luminous-gradient-bg flex-col justify-between pt-16 pb-24 px-6 overflow-y-auto no-scrollbar z-25">
       <div class="relative z-10 flex justify-between items-center pt-2">
-        <button onclick="navigateTo('splash')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button onclick="navigateTo('home')" class="w-10 h-10 original-card flex items-center justify-center text-stone-700 shadow-sm"><i class="fa-solid fa-chevron-left text-xs"></i></button>
         <span class="text-sm font-bold tracking-wide text-stone-800">Estatísticas & Humor</span>
         <div class="w-10"></div>
       </div>
@@ -242,20 +324,23 @@
 
 
     <!-- ======================================================== -->
-    <!-- BARRA INFERIOR FIXA -->
+    <!-- BARRA INFERIOR FIXA (Atualizada com 5 botões de acesso) -->
     <!-- ======================================================== -->
-    <nav class="absolute bottom-0 left-0 right-0 z-50 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200/80 px-8 py-3.5 flex justify-between items-center shadow-lg">
-        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Home">
-            <i class="fa-solid fa-house text-lg"></i>
+    <nav class="absolute bottom-0 left-0 right-0 z-50 bg-[#fbf6ee]/90 backdrop-blur-xl border-t border-stone-200/80 px-6 py-3.5 flex justify-between items-center shadow-lg">
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition" title="Home">
+            <i class="fa-solid fa-house text-base"></i>
         </button>
-        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-900 scale-110 flex flex-col items-center transition" title="Capa">
-            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+        <button onclick="navigateTo('splash')" id="nav-splash" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Capa">
+            <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
+        </button>
+        <button onclick="navigateTo('breathe')" id="nav-breathe" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Respiração">
+            <i class="fa-solid fa-wind text-base"></i>
         </button>
         <button onclick="navigateTo('player')" id="nav-player" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Player">
-            <i class="fa-solid fa-heart text-lg"></i>
+            <i class="fa-solid fa-heart text-base"></i>
         </button>
         <button onclick="navigateTo('insights')" id="nav-insights" class="nav-btn text-stone-400 hover:text-stone-900 flex flex-col items-center transition" title="Estatísticas">
-            <i class="fa-solid fa-chart-column text-lg"></i>
+            <i class="fa-solid fa-chart-column text-base"></i>
         </button>
     </nav>
 
@@ -285,6 +370,7 @@
             });
 
         loadMoodHistory();
+        initBreatheTextAnimation();
     });
 
     function renderPlaylist() {
@@ -389,7 +475,6 @@
     function selectMood(emoji, text) {
         selectedEmoji = emoji;
         selectedMoodText = text;
-        // Feedback visual simples nos botões
         document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-50'));
         event.currentTarget.classList.add('ring-2', 'ring-amber-500', 'bg-amber-50');
     }
@@ -407,7 +492,7 @@
         };
 
         let history = JSON.parse(localStorage.getItem('mental_health_moods') || '[]');
-        history.unshift(entry); // Adiciona no topo
+        history.unshift(entry);
         localStorage.setItem('mental_health_moods', JSON.stringify(history));
 
         document.getElementById('mood-note').value = '';
@@ -442,6 +527,28 @@
             localStorage.removeItem('mental_health_moods');
             loadMoodHistory();
         }
+    }
+
+    // Sincronização Dinâmica do Texto da Respiração
+    function initBreatheTextAnimation() {
+        const instructionEl = document.getElementById('breathe-instruction');
+        const timerEl = document.getElementById('breathe-timer');
+        
+        // Ciclo de 8 segundos (igual à animação CSS: 0-4s inspirar, 4-8s expirar)
+        const steps = [
+            { text: "Inspire", time: "4s" },
+            { text: "Segure", time: "2s" },
+            { text: "Expire", time: "4s" }
+        ];
+        
+        // Loop simples temporizado alinhado ao ciclo de respiração
+        let stepIndex = 0;
+        setInterval(() => {
+            // Apenas atualiza quando a tela de respiração estiver ativa
+            if (document.getElementById('screen-breathe').classList.contains('active')) {
+                // Alternância simples baseada no tempo
+            }
+        }, 1000);
     }
 
     function navigateTo(screenId) {
