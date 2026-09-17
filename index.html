@@ -199,10 +199,43 @@
         <div class="w-10"></div>
       </div>
 
-      <div class="relative z-10 mt-6 space-y-4 mb-auto">
-        <div class="original-card p-5 text-center shadow-sm">
-            <span class="text-3xl font-extrabold text-stone-900 block mb-1">Progresso Diário</span>
-            <span class="text-xs text-stone-600">Acompanhe suas sessões de relaxamento.</span>
+      <div class="relative z-10 mt-4 space-y-4 mb-auto pb-4">
+        <!-- Card de Registro de Humor -->
+        <div class="original-card p-5 shadow-sm">
+            <h2 class="text-lg font-bold text-stone-900 mb-1">Como você está se sentindo hoje?</h2>
+            <p class="text-xs text-stone-600 mb-3">Selecione seu estado atual:</p>
+            
+            <div class="flex justify-between gap-2 mb-4">
+              <button onclick="selectMood('🌿', 'Calmo')" class="mood-btn flex-1 py-2.5 rounded-xl bg-white/80 border border-stone-200 flex flex-col items-center gap-1 hover:bg-amber-100 transition text-xs font-medium text-stone-800 shadow-sm">
+                <span class="text-lg">🌿</span> Calmo
+              </button>
+              <button onclick="selectMood('☀️', 'Bem')" class="mood-btn flex-1 py-2.5 rounded-xl bg-white/80 border border-stone-200 flex flex-col items-center gap-1 hover:bg-amber-100 transition text-xs font-medium text-stone-800 shadow-sm">
+                <span class="text-lg">☀️</span> Bem
+              </button>
+              <button onclick="selectMood('🌧️', 'Cansado')" class="mood-btn flex-1 py-2.5 rounded-xl bg-white/80 border border-stone-200 flex flex-col items-center gap-1 hover:bg-amber-100 transition text-xs font-medium text-stone-800 shadow-sm">
+                <span class="text-lg">🌧️</span> Cansado
+              </button>
+              <button onclick="selectMood('🌙', 'Reflexivo')" class="mood-btn flex-1 py-2.5 rounded-xl bg-white/80 border border-stone-200 flex flex-col items-center gap-1 hover:bg-amber-100 transition text-xs font-medium text-stone-800 shadow-sm">
+                <span class="text-lg">🌙</span> Reflexivo
+              </button>
+            </div>
+
+            <textarea id="mood-note" placeholder="Deseja anotar algo sobre o seu dia? (opcional)" class="w-full p-3 text-xs bg-white/60 border border-stone-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-amber-500 text-stone-800 resize-none h-20 mb-3"></textarea>
+            
+            <button onclick="saveMood()" class="w-full py-2.5 bg-stone-900 text-amber-200 font-semibold rounded-xl text-xs shadow-md hover:bg-stone-800 transition">
+              Salvar Registro Diário
+            </button>
+        </div>
+
+        <!-- Histórico de Registros -->
+        <div class="original-card p-5 shadow-sm">
+          <h3 class="text-sm font-bold text-stone-900 mb-3 flex items-center justify-between">
+            <span>Histórico de Bem-Estar</span>
+            <button onclick="clearHistory()" class="text-[10px] text-red-600 hover:underline">Limpar</button>
+          </h3>
+          <div id="mood-history-container" class="space-y-2 max-h-40 overflow-y-auto pr-1">
+            <p class="text-xs text-stone-500 text-center py-2">Nenhum registro salvo ainda.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -233,6 +266,8 @@
     let currentIndex = 0;
     const audio = document.getElementById('relax-audio');
     let isPlaying = false;
+    let selectedEmoji = '🌿';
+    let selectedMoodText = 'Calmo';
 
     window.addEventListener('DOMContentLoaded', () => {
         fetch('musicas.json')
@@ -248,6 +283,8 @@
                 console.error("Erro ao carregar musicas.json:", err);
                 document.getElementById('playlist-container').innerHTML = '<p class="text-xs text-red-500">Erro ao carregar lista de músicas.</p>';
             });
+
+        loadMoodHistory();
     });
 
     function renderPlaylist() {
@@ -347,6 +384,65 @@
     audio.addEventListener('ended', () => {
         nextTrack();
     });
+
+    // Funções de Humor e Estatísticas
+    function selectMood(emoji, text) {
+        selectedEmoji = emoji;
+        selectedMoodText = text;
+        // Feedback visual simples nos botões
+        document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-50'));
+        event.currentTarget.classList.add('ring-2', 'ring-amber-500', 'bg-amber-50');
+    }
+
+    function saveMood() {
+        const note = document.getElementById('mood-note').value.trim();
+        const now = new Date();
+        const dateStr = `${now.toLocaleDateString('pt-BR')} às ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        const entry = {
+            emoji: selectedEmoji,
+            mood: selectedMoodText,
+            note: note || 'Sem anotações.',
+            date: dateStr
+        };
+
+        let history = JSON.parse(localStorage.getItem('mental_health_moods') || '[]');
+        history.unshift(entry); // Adiciona no topo
+        localStorage.setItem('mental_health_moods', JSON.stringify(history));
+
+        document.getElementById('mood-note').value = '';
+        loadMoodHistory();
+    }
+
+    function loadMoodHistory() {
+        const container = document.getElementById('mood-history-container');
+        let history = JSON.parse(localStorage.getItem('mental_health_moods') || '[]');
+
+        if (history.length === 0) {
+            container.innerHTML = '<p class="text-xs text-stone-500 text-center py-2">Nenhum registro salvo ainda.</p>';
+            return;
+        }
+
+        container.innerHTML = '';
+        history.forEach(item => {
+            container.innerHTML += `
+                <div class="p-2.5 rounded-xl bg-white/70 border border-stone-200/60 shadow-xs flex flex-col gap-1">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-stone-900">${item.emoji} ${item.mood}</span>
+                        <span class="text-[10px] text-stone-400">${item.date}</span>
+                    </div>
+                    <p class="text-[11px] text-stone-600">${item.note}</p>
+                </div>
+            `;
+        });
+    }
+
+    function clearHistory() {
+        if (confirm('Deseja limpar todo o histórico de humor?')) {
+            localStorage.removeItem('mental_health_moods');
+            loadMoodHistory();
+        }
+    }
 
     function navigateTo(screenId) {
         document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
