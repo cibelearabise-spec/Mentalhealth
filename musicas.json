@@ -12,5 +12,12 @@
     "genre": "Epic / Ambient",
     "audioUrl": "musicas/MidnightEchoes.mp3",
     "coverUrl": "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&q=80"
-  }
+  },
+  {
+    "id": "3",
+    "title": "worshipmusic",
+    "genre": "Epic / Ambient",
+    "audioUrl": "musicas/worshipmusic.mp3",
+    "coverUrl": "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&q=80"
+  },
 ]
